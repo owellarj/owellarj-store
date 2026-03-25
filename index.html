@@ -1186,6 +1186,60 @@
     .metric-cards { grid-template-columns: 1fr 1fr; }
     footer { flex-direction: column; text-align: center; }
   }
+
+  /* GUARANTEE BADGE */
+  .guarantee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(76,175,80,0.1);
+    border: 1px solid rgba(76,175,80,0.3);
+    color: #6fcf72;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-top: 10px;
+    white-space: nowrap;
+  }
+  .guarantee-badge::before { content: '🛡️'; font-size: 0.85rem; }
+
+  /* PAYMENT LOGOS */
+  .payment-logos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .pay-logo {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #c8d0e0;
+  }
+  .pay-logo.visa   { color: #1a6be0; background: rgba(26,107,224,0.1); border-color: rgba(26,107,224,0.25); }
+  .pay-logo.master { color: #eb5757; background: rgba(235,87,87,0.1);  border-color: rgba(235,87,87,0.25); }
+  .pay-logo.mada   { color: #00a86b; background: rgba(0,168,107,0.1);  border-color: rgba(0,168,107,0.25); }
+  .pay-logo.ssl    { color: #f0b429; background: rgba(240,180,41,0.1); border-color: rgba(240,180,41,0.25); }
+
+  /* CONTACT FORM — in-page (Formspree) */
+  .form-status {
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-top: 10px;
+    display: none;
+  }
+  .form-status.success { background: rgba(76,175,80,0.12); border: 1px solid rgba(76,175,80,0.3); color: #6fcf72; }
+  .form-status.error   { background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); color: #ff6b6b; }
+
 </style>
 </head>
 <body>
@@ -1344,6 +1398,12 @@
             </div>
           </div>
         </div>
+          <div class="guarantee-badge">ضمان الرضا 7 أيام</div>
+          <div class="payment-logos">
+            <span class="pay-logo visa">VISA</span>
+            <span class="pay-logo master">Mastercard</span>
+            <span class="pay-logo ssl">🔒 SSL</span>
+          </div>
       </div>
     </div>
 
@@ -1539,7 +1599,7 @@
       <div class="testi-author">
         <div class="testi-avatar">م</div>
         <div class="testi-info">
-          <h4>محمد س</h4>
+          <h4>محمد</h4>
           <div class="testi-stars">★★★★★</div>
         </div>
       </div>
@@ -1550,18 +1610,18 @@
       <div class="testi-author">
         <div class="testi-avatar">ع</div>
         <div class="testi-info">
-          <h4>عبدالله ب</h4>
+          <h4>عبدالله</h4>
           <div class="testi-stars">★★★★★</div>
         </div>
       </div>
     </div>
     <div class="testi-card">
       <div class="testi-quote">"</div>
-      <p class="testi-text">ساعدتني هذه الأدوات بشكل كبير في فهم كيفية دراسة السوق واتخاذ القرارات بشكل صحيح، وقد حلّت مشكلة كبيرة كنت أواجهها وهي عدم توفر أدوات وأنظمة مخصصة للبائعين العرب.</p>
+      <p class="testi-text">ساعدتني هذه الأدوات بشكل كبير في فهم كيفية دراسة السوق واتخاذ القرارات بشكل صحيح.</p>
       <div class="testi-author">
-        <div class="testi-avatar">م</div>
+        <div class="testi-avatar">ع</div>
         <div class="testi-info">
-          <h4>مهند</h4>
+          <h4>عمر</h4>
           <div class="testi-stars">★★★★★</div>
         </div>
       </div>
@@ -1698,6 +1758,22 @@
       </div>
     </div>
 
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <div class="faq-q-text">
+          <div class="faq-icon">🛡️</div>
+          ما هو ضمان الرضا لـ 7 أيام؟
+        </div>
+        <div class="faq-arrow">▼</div>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          نؤمن بجودة منتجاتنا، لذلك نقدم <strong>ضمان الرضا الكامل لمدة 7 أيام</strong> من تاريخ الشراء. إذا لم تكن راضياً عن أي نظام لأي سبب، تواصل معنا على owellarj@gmail.com وسنعيد لك المبلغ كاملاً.
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1746,20 +1822,20 @@
     <!-- Right: form -->
     <div class="contact-form-wrap anim-item">
       <h4>📩 أرسل رسالتك</h4>
-      <div id="contactForm">
+      <form id="contactForm" onsubmit="submitForm(event)">
         <div class="form-row">
           <div class="form-group">
             <label for="fname">الاسم *</label>
-            <input type="text" id="fname" placeholder="اسمك الكريم" required autocomplete="name">
+            <input type="text" id="fname" name="name" placeholder="اسمك الكريم" required autocomplete="name">
           </div>
           <div class="form-group">
             <label for="femail">البريد الإلكتروني *</label>
-            <input type="email" id="femail" placeholder="email@example.com" dir="ltr" required autocomplete="email">
+            <input type="email" id="femail" name="email" placeholder="email@example.com" dir="ltr" required autocomplete="email">
           </div>
         </div>
         <div class="form-group">
           <label for="fsubject">الموضوع</label>
-          <select id="fsubject">
+          <select id="fsubject" name="subject">
             <option value="">اختر موضوع الرسالة</option>
             <option value="استفسار عن منتج">استفسار عن منتج</option>
             <option value="مشكلة تقنية">مشكلة تقنية</option>
@@ -1770,19 +1846,14 @@
         </div>
         <div class="form-group">
           <label for="fmessage">رسالتك *</label>
-          <textarea id="fmessage" placeholder="اكتب رسالتك هنا..." required></textarea>
+          <textarea id="fmessage" name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
         </div>
-        <button class="form-submit" id="submitBtn" onclick="sendContactForm()">
+        <button class="form-submit" id="submitBtn" type="submit">
           <span id="btnText">إرسال الرسالة</span>
           <span id="btnIcon">✉️</span>
         </button>
-        <p id="formError" style="color:#ff6b6b; font-size:0.83rem; margin-top:10px; display:none; text-align:center;"></p>
-      </div>
-      <div class="form-success" id="formSuccess">
-        <div class="fs-icon">✅</div>
-        <h4>تم فتح برنامج البريد الإلكتروني!</h4>
-        <p>يرجى إرسال الرسالة من برنامج البريد الإلكتروني الذي فُتح تلقائياً. سنرد عليك خلال 24 ساعة.</p>
-      </div>
+        <div id="formStatus" class="form-status"></div>
+      </form>
     </div>
 
   </div>
@@ -1798,7 +1869,8 @@
       تصفح جميع الأنظمة
       <span>←</span>
     </a>
-    <div class="cta-note">
+    <div style="margin-top:16px;"><span class="guarantee-badge">ضمان الرضا 7 أيام — استرداد كامل إن لم تكن راضياً</span></div>
+    <div class="cta-note" style="margin-top:12px;">
       <span>🔒</span> دفع آمن 100% &nbsp;·&nbsp; <span>⚡</span> تسليم فوري &nbsp;·&nbsp; <span>🎥</span> شرح مفصل مع كل نظام
     </div>
   </div>
@@ -1818,6 +1890,11 @@
   <div class="footer-links">
     <a href="about.html">من نحن</a>
     <a href="#contact">تواصل معنا</a>
+  </div>
+  <div class="payment-logos" style="justify-content:flex-start;">
+    <span class="pay-logo visa">VISA</span>
+    <span class="pay-logo master">Mastercard</span>
+    <span class="pay-logo ssl">🔒 SSL</span>
   </div>
 </footer>
 
@@ -1893,33 +1970,36 @@
     if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
   });
 
-  // Contact form — sends via mailto to owellarj@gmail.com
-  window.sendContactForm = function() {
-    const name    = document.getElementById('fname').value.trim();
-    const email   = document.getElementById('femail').value.trim();
-    const subject = document.getElementById('fsubject').value || 'استفسار عام';
-    const message = document.getElementById('fmessage').value.trim();
-    const errEl   = document.getElementById('formError');
-
-    errEl.style.display = 'none';
-    if (!name) { errEl.textContent = '⚠️ الرجاء إدخال اسمك'; errEl.style.display = 'block'; return; }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = '⚠️ الرجاء إدخال بريد إلكتروني صحيح'; errEl.style.display = 'block'; return; }
-    if (!message) { errEl.textContent = '⚠️ الرجاء كتابة رسالتك'; errEl.style.display = 'block'; return; }
-
-    const btn = document.getElementById('submitBtn');
+  // Contact form — submits via Formspree
+  window.submitForm = async function(e) {
+    e.preventDefault();
+    const btn    = document.getElementById('submitBtn');
+    const status = document.getElementById('formStatus');
     btn.disabled = true;
     document.getElementById('btnText').textContent = 'جاري الإرسال...';
     document.getElementById('btnIcon').textContent = '⏳';
-
-    const body = `السلام عليكم،\n\nاسم المرسل: ${name}\nالبريد الإلكتروني: ${email}\nالموضوع: ${subject}\n\nالرسالة:\n${message}\n\n---\nأُرسلت عبر نموذج تواصل موقع Owellarj`;
-    const mailtoLink = `mailto:owellarj@gmail.com?subject=${encodeURIComponent('رسالة من الموقع: ' + subject + ' - ' + name)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailtoLink;
-
-    setTimeout(() => {
-      document.getElementById('contactForm').style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
-    }, 800);
+    status.style.display = 'none';
+    try {
+      const res = await fetch('https://formspree.io/f/owellarj', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(document.getElementById('contactForm'))
+      });
+      if (res.ok) {
+        status.textContent = '✅ تم إرسال رسالتك بنجاح! سنرد عليك خلال 24 ساعة.';
+        status.className = 'form-status success';
+        document.getElementById('contactForm').reset();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      status.textContent = '⚠️ حدث خطأ في الإرسال. يرجى التواصل مباشرة على owellarj@gmail.com';
+      status.className = 'form-status error';
+    }
+    status.style.display = 'block';
+    btn.disabled = false;
+    document.getElementById('btnText').textContent = 'إرسال الرسالة';
+    document.getElementById('btnIcon').textContent = '✉️';
   };
 
   document.querySelectorAll('.products-grid .product-card').forEach((card, i) => {
