@@ -1140,66 +1140,118 @@
 </div>
 
 <script>
-const SYSTEM_PROMPT = `أنت مساعد ذكي لموقع Owellarj، متخصص في مساعدة بائعي أمازون في الوطن العربي. أجب بالعربية دائماً بشكل مختصر وودود.
+const KB = [
+  {
+    keys: ['دراسة السوق','market study','سوق','منافس','منافسة','فروقات','علامات تجارية','helium','هيليوم'],
+    answer: '📊 نظام دراسة السوق بسعر 149.99 ر.س — يحلل الفروقات بين المنتجات، الفئات السعرية، نسبة استحواذ العلامات التجارية، وتوزيع البائعين حسب الدول. يتطلب Helium 10.'
+  },
+  {
+    keys: ['fba','fees','رسوم','تخزين','fba fees'],
+    answer: '📦 نظام FBA Fees Tracker بسعر 149.99 ر.س — يتابع رسوم التخزين أسبوعياً ويكشف الزيادات المفاجئة مبكراً. لا يحتاج Helium 10، يعمل بشكل مستقل.'
+  },
+  {
+    keys: ['مورد','موردين','supplier','سلسلة توريد','توريد','بدائل'],
+    answer: '🤝 نظام متابعة الموردين بسعر 99.99 ر.س — ملف مستقل لكل مورد مع متابعة الأسعار وتقييم الأداء وإدارة الموردين البدلاء. لا يحتاج Helium 10.'
+  },
+  {
+    keys: ['طلب','demand','موسم','موسمي','ذروة','انخفاض','مؤقت'],
+    answer: '📈 نظام دراسة الطلب بسعر 129.99 ر.س — يحلل اتجاه الطلب السنوي ويحدد مواسم الذروة والانخفاض ويكشف المنتجات المؤقتة. يتطلب Helium 10.'
+  },
+  {
+    keys: ['data dive','داتا دايف','كلمات مفتاحية','listing','خصم','كود'],
+    answer: '🎟️ كود خصم Data Dive بسعر 39.99 ر.س — يمنحك خصم 40 دولار على جميع خطط Data Dive. للحسابات الجديدة فقط، تسليم فوري بعد الشراء.'
+  },
+  {
+    keys: ['سعر','اسعار','أسعار','كم','تكلفة','تكلف'],
+    answer: '💰 أسعارنا:
+• دراسة السوق: 149.99 ر.س
+• FBA Fees Tracker: 149.99 ر.س
+• دراسة الطلب: 129.99 ر.س
+• متابعة الموردين: 99.99 ر.س
+• كود Data Dive: 39.99 ر.س'
+  },
+  {
+    keys: ['دفع','شراء','اشتري','طريقة الدفع','آمن','امن'],
+    answer: '🔒 الدفع آمن 100% عبر بوابات دفع موثوقة ومشفرة. بعد إتمام الدفع ستحصل على الملف ورابط فيديو الشرح فوراً.'
+  },
+  {
+    keys: ['تسليم','حصل','متى','وقت','فوري','بعد الشراء'],
+    answer: '⚡ التسليم فوري بعد إتمام الدفع مباشرة — رابط تحميل الملف + فيديو الشرح في نفس اللحظة، دون أي انتظار.'
+  },
+  {
+    keys: ['excel','اكسل','برنامج','تشغيل','mac','windows','ويندوز'],
+    answer: '💻 تحتاج فقط Microsoft Excel — لا برامج إضافية ولا اشتراكات أخرى. تعمل على Windows وMac بالكامل.'
+  },
+  {
+    keys: ['تواصل','اتصال','ايميل','إيميل','بريد','contact','مساعدة','دعم'],
+    answer: '📧 تواصل معنا على: owellarj@gmail.com
+نرد خلال 24 ساعة. لسرعة الرد اذكر اسم النظام الذي تسأل عنه.'
+  },
+  {
+    keys: ['من نحن','owellarj','اولارج','شركة','من انتم'],
+    answer: '🏢 Owellarj شركة متخصصة في تطوير أنظمة وأدوات ذكية لتمكين بائعي أمازون في الوطن العربي من اتخاذ قرارات مبنية على البيانات.'
+  },
+  {
+    keys: ['منتجات','أنظمة','انظمة','عندكم','ماذا','ايش'],
+    answer: '🛠️ لدينا 5 منتجات:
+1. نظام دراسة السوق
+2. FBA Fees Tracker
+3. نظام دراسة الطلب
+4. نظام متابعة الموردين
+5. كود خصم Data Dive
+اسألني عن أي منها لمعرفة التفاصيل!'
+  },
+  {
+    keys: ['مواقع امازون','amazon','اي موقع','us','uk','sa','ae'],
+    answer: '🌍 جميع أنظمتنا تعمل مع كل مواقع أمازون — US, UK, DE, UAE, SA, JP وغيرها بدون استثناء.'
+  },
+  {
+    keys: ['مرتين','اكثر من مرة','منتجات متعددة','عدة منتجات'],
+    answer: '✅ نعم! بعد شراء أي نظام يمكنك استخدامه لتحليل أي عدد من المنتجات في أي وقت دون أي تكلفة إضافية.'
+  },
+  {
+    keys: ['مبتدئ','مبتدئة','جديد','بدون خبرة','سهل','صعب'],
+    answer: '👍 الأنظمة مصممة للمبتدئ والمحترف! خطوات بسيطة وواضحة + فيديو شرح تفصيلي مع كل نظام يرشدك خطوة بخطوة.'
+  }
+];
 
-معلومات المنتجات:
-1. نظام دراسة السوق - أمازون (149.99 ر.س): يحلل الفروقات بين المنتجات، الفئات السعرية، نسبة استحواذ العلامات التجارية، تحليل البائعين حسب الدول. يتطلب Helium 10.
-2. نظام FBA Fees Tracker (149.99 ر.س): متابعة أسبوعية لرسوم التخزين، تحليل رسوم التخزين طويلة الأمد، اكتشاف الزيادات المفاجئة. لا يحتاج Helium 10.
-3. نظام متابعة الموردين (99.99 ر.س): ملف لكل مورد، متابعة الأسعار، تقييم الأداء، إدارة الموردين البدلاء. لا يحتاج Helium 10.
-4. نظام دراسة الطلب على السوق (129.99 ر.س): تحليل اتجاه الطلب السنوي، مواسم الذروة والانخفاض، اكتشاف المنتجات المؤقتة. يتطلب Helium 10.
-5. كود خصم Data Dive (39.99 ر.س): خصم 40 دولار على جميع خطط Data Dive، للحسابات الجديدة فقط.
-
-جميع الأنظمة: Excel فقط بدون برامج إضافية، تسليم فوري بعد الدفع، فيديو شرح مع كل نظام، تعمل مع جميع مواقع أمازون.
-التواصل: owellarj@gmail.com
-الدفع: آمن 100% عبر بوابات موثوقة.
-أجب بإيجاز ووضوح، لا تتجاوز 3 جمل في كل رد.`;
+const DEFAULT = 'شكراً على سؤالك! 😊 يمكنني مساعدتك في التعرف على منتجاتنا وأسعارها وطريقة الشراء. للتواصل المباشر: owellarj@gmail.com';
 
 let chatOpen = false;
-let isLoading = false;
-const history = [];
 
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('chatWindow').classList.toggle('open', chatOpen);
 }
 
-async function sendMessage() {
+function getReply(msg) {
+  const lower = msg.toLowerCase();
+  for (const item of KB) {
+    if (item.keys.some(k => lower.includes(k.toLowerCase()))) {
+      return item.answer;
+    }
+  }
+  return DEFAULT;
+}
+
+function sendMessage() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
-  if (!msg || isLoading) return;
+  if (!msg) return;
   input.value = '';
   addMsg(msg, 'user');
-  history.push({ role: 'user', content: msg });
-  isLoading = true;
-  document.getElementById('chatSend').disabled = true;
   const typingEl = addMsg('...', 'bot typing');
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
-        system: SYSTEM_PROMPT,
-        messages: history
-      })
-    });
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || 'عذراً، حدث خطأ. تواصل معنا على owellarj@gmail.com';
-    typingEl.textContent = reply;
+  setTimeout(() => {
+    typingEl.textContent = getReply(msg);
     typingEl.classList.remove('typing');
-    history.push({ role: 'assistant', content: reply });
-  } catch(e) {
-    typingEl.textContent = 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.';
-    typingEl.classList.remove('typing');
-  }
-  isLoading = false;
-  document.getElementById('chatSend').disabled = false;
+    document.getElementById('chatMessages').scrollTop = 99999;
+  }, 600);
 }
 
 function addMsg(text, type) {
   const el = document.createElement('div');
   el.className = 'msg ' + type;
+  el.style.whiteSpace = 'pre-line';
   el.textContent = text;
   const container = document.getElementById('chatMessages');
   container.appendChild(el);
