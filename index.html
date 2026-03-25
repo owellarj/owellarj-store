@@ -1970,37 +1970,32 @@
     if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
   });
 
-  // Contact form — submits via Formspree
-  window.submitForm = async function(e) {
+  // Contact form — opens email client with pre-filled message
+  window.submitForm = function(e) {
     e.preventDefault();
-    const btn    = document.getElementById('submitBtn');
-    const status = document.getElementById('formStatus');
-    btn.disabled = true;
-    document.getElementById('btnText').textContent = 'جاري الإرسال...';
-    document.getElementById('btnIcon').textContent = '⏳';
-    status.style.display = 'none';
-    try {
-      const res = await fetch('https://formspree.io/f/owellarj', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(document.getElementById('contactForm'))
-      });
-      if (res.ok) {
-        status.textContent = '✅ تم إرسال رسالتك بنجاح! سنرد عليك خلال 24 ساعة.';
-        status.className = 'form-status success';
-        document.getElementById('contactForm').reset();
-      } else {
-        throw new Error();
-      }
-    } catch {
-      status.textContent = '⚠️ حدث خطأ في الإرسال. يرجى التواصل مباشرة على owellarj@gmail.com';
-      status.className = 'form-status error';
-    }
-    status.style.display = 'block';
-    btn.disabled = false;
-    document.getElementById('btnText').textContent = 'إرسال الرسالة';
-    document.getElementById('btnIcon').textContent = '✉️';
+    const name    = document.getElementById('fname').value.trim();
+    const email   = document.getElementById('femail').value.trim();
+    const subject = document.getElementById('fsubject').value || 'استفسار عام';
+    const message = document.getElementById('fmessage').value.trim();
+    const status  = document.getElementById('formStatus');
+
+    if (!name) { showStatus('⚠️ الرجاء إدخال اسمك', 'error'); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showStatus('⚠️ الرجاء إدخال بريد إلكتروني صحيح', 'error'); return; }
+    if (!message) { showStatus('⚠️ الرجاء كتابة رسالتك', 'error'); return; }
+
+    const body = `السلام عليكم،\n\nاسم المرسل: ${name}\nالبريد الإلكتروني: ${email}\nالموضوع: ${subject}\n\nالرسالة:\n${message}\n\n---\nأُرسلت عبر نموذج تواصل موقع Owellarj`;
+    window.location.href = `mailto:owellarj@gmail.com?subject=${encodeURIComponent('رسالة من الموقع: ' + subject + ' - ' + name)}&body=${encodeURIComponent(body)}`;
+
+    document.getElementById('contactForm').reset();
+    showStatus('✅ تم فتح تطبيق البريد — أرسل الرسالة من هناك وسنرد خلال 24 ساعة.', 'success');
   };
+
+  function showStatus(msg, type) {
+    const el = document.getElementById('formStatus');
+    el.textContent = msg;
+    el.className = 'form-status ' + type;
+    el.style.display = 'block';
+  }
 
   document.querySelectorAll('.products-grid .product-card').forEach((card, i) => {
     card.dataset.delay = i * 100;
