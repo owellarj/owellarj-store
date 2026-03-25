@@ -1191,7 +1191,7 @@
 
 <!-- NAVBAR -->
 <nav>
-  <a href="#" class="logo">
+  <a href="index.html" class="logo">
     <div class="logo-icon">O</div>
     <span class="logo-text">Owellarj<span>.</span></span>
   </a>
@@ -1930,10 +1930,26 @@
     card.dataset.delay = i * 100;
   });
 
+  // If navigating back from a product page, make all animated elements visible immediately
+  if (document.referrer && document.referrer !== window.location.href) {
+    document.querySelectorAll('.anim-item, .product-card, .step-card, .testi-card, .why-point, .faq-item').forEach(el => {
+      el.classList.add('visible');
+    });
+  }
+
   // Smooth scroll with navbar offset
   const NAV_HEIGHT = 72;
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const href = a.getAttribute('href');
       if (href === '#') return;
-      const target = document.querySelector(hr
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
