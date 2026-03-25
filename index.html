@@ -3,8 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Owellarj | أدوات أمازون الاحترافية</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<title>Owellarj | أدوات أمازون الاحترافية - أنظمة Excel لبائعي أمازون</title>
+<meta name="description" content="أنظمة Excel احترافية لبائعي أمازون في السعودية والعالم العربي. تحليل السوق، إدارة الموردين، مراقبة التكاليف — مصممة بخبرة بائعي أمازون.">
+<meta name="keywords" content="أمازون, بائعي أمازون, FBA, Excel, تحليل السوق, أدوات أمازون, Helium 10, السعودية">
+<meta name="author" content="Owellarj">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#080b12">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Owellarj | أدوات أمازون الاحترافية">
+<meta property="og:description" content="أنظمة Excel احترافية لبائعي أمازون — تحليل السوق، إدارة الموردين، مراقبة التكاليف. مصممة للبائع العربي.">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:site_name" content="Owellarj">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Owellarj | أدوات أمازون الاحترافية">
+<meta name="twitter:description" content="أنظمة Excel احترافية لبائعي أمازون — تحليل السوق، إدارة الموردين، مراقبة التكاليف.">
+
+<!-- Preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Owellarj",
+  "description": "أنظمة Excel احترافية لبائعي أمازون في السعودية والعالم العربي",
+  "email": "owellarj@gmail.com",
+  "url": "https://owellarj.com"
+}
+</script>
 <style>
   :root {
     --bg: #080b12;
@@ -239,6 +272,7 @@
     transition: border-color 0.2s, background 0.2s;
   }
   .btn-secondary:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
+  .btn-primary-lg { font-size: 1.1rem; padding: 18px 48px; }
 
   .hero-stats {
     display: flex;
@@ -491,7 +525,6 @@
     align-items: center;
     padding: 48px;
   }
-  .featured-left {}
   .featured-right {
     background: var(--bg);
     border: 1px solid var(--border);
@@ -519,7 +552,6 @@
   .ff-text p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
 
   /* HOW IT WORKS */
-  .how-section {}
   .steps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -590,6 +622,17 @@
     position: relative;
     overflow: hidden;
   }
+  .why-visual-subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+  .why-visual-flags { font-family: 'Tajawal', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 24px; }
+  .tip-box {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .tip-title { font-size: 0.85rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+  .tip-text { font-size: 0.83rem; color: var(--muted); line-height: 1.8; }
+  .featured-right-intro { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; font-weight: 600; }
   .why-visual::after {
     content: '';
     position: absolute;
@@ -662,7 +705,6 @@
   .wp-text p { font-size: 0.88rem; color: var(--muted); line-height: 1.8; }
 
   /* TESTIMONIALS */
-  .testimonials-section {}
   .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -830,6 +872,12 @@
     cursor: pointer;
     user-select: none;
     transition: background 0.2s;
+    border: none;
+    background: none;
+    width: 100%;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
   }
   .faq-q:hover { background: rgba(255,255,255,0.02); }
   .faq-q-text {
@@ -892,7 +940,6 @@
   .faq-a-inner strong { color: var(--white); font-weight: 600; }
 
   /* CONTACT SECTION */
-  .contact-section {}
   .contact-wrap {
     max-width: 1000px;
     margin: 0 auto;
@@ -1094,6 +1141,45 @@
     .contact-wrap { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
   }
+  /* NAVBAR SCROLL STATE */
+  nav.scrolled {
+    background: rgba(8,11,18,0.97);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #080b12;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(240,180,41,0.3);
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .back-to-top:hover {
+    box-shadow: 0 8px 28px rgba(240,180,41,0.45);
+    transform: translateY(-2px);
+  }
+
   @media (max-width: 600px) {
     .products-grid { grid-template-columns: 1fr; }
     .metric-cards { grid-template-columns: 1fr 1fr; }
@@ -1131,6 +1217,9 @@
   <a href="#contact" onclick="closeMenu()">✉️ تواصل معنا</a>
   <a href="#products" class="mobile-cta" onclick="closeMenu()">تصفح المنتجات ←</a>
 </div>
+
+<!-- MAIN CONTENT -->
+<main>
 
 <!-- HERO -->
 <section class="hero">
@@ -1219,11 +1308,11 @@
         </div>
         <div class="card-footer">
           <div class="card-price"><span>SAR</span>149.99</div>
-          <a href="#" class="card-btn">اشتري الآن ←</a>
+          <a href="market-study.html" class="card-btn">اشتري الآن ←</a>
         </div>
       </div>
       <div class="featured-right">
-        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:16px; font-weight:600;">ما ستحصل عليه في النظام:</p>
+        <p class="featured-right-intro">ما ستحصل عليه في النظام:</p>
         <div class="featured-feature-list">
           <div class="ff-item">
             <div class="ff-emoji">🔍</div>
@@ -1272,7 +1361,7 @@
       </div>
       <div class="card-footer">
         <div class="card-price"><span>SAR</span>149.99</div>
-        <a href="#" class="card-btn">اشتري ←</a>
+        <a href="fba-fees.html" class="card-btn">اشتري ←</a>
       </div>
     </div>
 
@@ -1291,7 +1380,7 @@
       </div>
       <div class="card-footer">
         <div class="card-price"><span>SAR</span>99.99</div>
-        <a href="#" class="card-btn">اشتري ←</a>
+        <a href="supplier-tracking.html" class="card-btn">اشتري ←</a>
       </div>
     </div>
 
@@ -1310,7 +1399,7 @@
       </div>
       <div class="card-footer">
         <div class="card-price"><span>SAR</span>129.99</div>
-        <a href="#" class="card-btn">اشتري ←</a>
+        <a href="demand-study.html" class="card-btn">اشتري ←</a>
       </div>
     </div>
 
@@ -1379,8 +1468,8 @@
       <div class="amazon-badge">
         <span>📦</span> Amazon FBA / FBM
       </div>
-      <p style="color:var(--muted); font-size:0.9rem; margin-bottom:8px;">يعمل مع جميع مواقع أمازون</p>
-      <div style="font-family:'Tajawal',sans-serif; font-size:1.4rem; font-weight:800; margin-bottom:24px;">
+      <p class="why-visual-subtitle">يعمل مع جميع مواقع أمازون</p>
+      <div class="why-visual-flags">
         🇺🇸 🇬🇧 🇩🇪 🇦🇪 🇸🇦 🇯🇵
       </div>
       <div class="metric-cards">
@@ -1492,13 +1581,13 @@
   <div class="faq-wrap">
 
     <div class="faq-item">
-      <div class="faq-q">
+      <button class="faq-q" aria-expanded="false">
         <div class="faq-q-text">
           <div class="faq-icon">📦</div>
           هل الأنظمة تعمل مع أي موقع أمازون؟
         </div>
         <div class="faq-arrow">▼</div>
-      </div>
+      </button>
       <div class="faq-a">
         <div class="faq-a-inner">
           نعم، <strong>جميع الأنظمة تعمل مع كل مواقع أمازون</strong> بدون استثناء — أمازون US، UK، DE، UAE، SA، JP وغيرها. الملفات مصممة لتتكيف مع أي سوق تعمل عليه.
@@ -1507,13 +1596,13 @@
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">
+      <button class="faq-q" aria-expanded="false">
         <div class="faq-q-text">
           <div class="faq-icon">🔧</div>
           هل أحتاج خبرة تقنية لاستخدام الأنظمة؟
         </div>
         <div class="faq-arrow">▼</div>
-      </div>
+      </button>
       <div class="faq-a">
         <div class="faq-a-inner">
           لا، الأنظمة مصممة بـ<strong>خطوات بسيطة وواضحة</strong> يستطيع استخدامها أي شخص حتى لو لم يكن لديه خبرة في Excel. بالإضافة لذلك، كل نظام يأتي مع <strong>فيديو شرح تفصيلي</strong> يشرح كل خطوة.
@@ -1522,13 +1611,13 @@
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">
+      <button class="faq-q" aria-expanded="false">
         <div class="faq-q-text">
           <div class="faq-icon">⚡</div>
           هل سأحصل على الملف فور الشراء؟
         </div>
         <div class="faq-arrow">▼</div>
-      </div>
+      </button>
       <div class="faq-a">
         <div class="faq-a-inner">
           نعم، <strong>التسليم فوري بعد إتمام الدفع</strong>. ستحصل على رابط تحميل مباشر للملف ورابط فيديو الشرح في نفس اللحظة دون أي انتظار.
@@ -1537,13 +1626,13 @@
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">
+      <button class="faq-q" aria-expanded="false">
         <div class="faq-q-text">
           <div class="faq-icon">🔑</div>
           هل أحتاج Helium 10 لاستخدام الأنظمة؟
         </div>
         <div class="faq-arrow">▼</div>
-      </div>
+      </button>
       <div class="faq-a">
         <div class="faq-a-inner">
           <strong>نظام دراسة السوق ونظام دراسة الطلب</strong> يعتمدان على بيانات من Helium 10 أو أدوات تحليل أمازون الأخرى لأنهما يحللان بيانات حقيقية من السوق. أما <strong>نظام FBA Fees Tracker ونظام متابعة الموردين</strong> فلا يحتاجان Helium 10 ويعملان بشكل مستقل تماماً.
@@ -1552,13 +1641,13 @@
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">
+      <button class="faq-q" aria-expanded="false">
         <div class="faq-q-text">
           <div class="faq-icon">💻</div>
           ما البرامج المطلوبة لتشغيل الأنظمة؟
         </div>
         <div class="faq-arrow">▼</div>
-      </div>
+      </button>
       <div class="faq-a">
         <div class="faq-a-inner">
           فقط <strong>Microsoft Excel</strong> — لا حاجة لأي برامج إضافية أو اشتراكات أخرى. الملفات مصممة لتعمل على Excel بشكل كامل سواء على Windows أو Mac.
@@ -1567,13 +1656,13 @@
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">
+      <button class="faq-q" aria-expanded="false">
         <div class="faq-q-text">
           <div class="faq-icon">🔄</div>
           هل يمكنني استخدام النظام لأكثر من منتج؟
         </div>
         <div class="faq-arrow">▼</div>
-      </div>
+      </button>
       <div class="faq-a">
         <div class="faq-a-inner">
           نعم، <strong>جميع الأنظمة قابلة للاستخدام لأي عدد من المنتجات</strong>. بعد شراء النظام مرة واحدة يمكنك استخدامه لتحليل أي منتج جديد في أي وقت دون أي تكلفة إضافية.
@@ -1582,13 +1671,13 @@
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">
+      <button class="faq-q" aria-expanded="false">
         <div class="faq-q-text">
           <div class="faq-icon">🎟️</div>
           كيف يعمل كود خصم Data Dive؟
         </div>
         <div class="faq-arrow">▼</div>
-      </div>
+      </button>
       <div class="faq-a">
         <div class="faq-a-inner">
           بعد الشراء ستحصل على كود الخصم الذي يمنحك <strong>شهراً مجانياً على الخطة الأساسية من Data Dive</strong> بقيمة 30 دولار. طريقة التفعيل بسيطة جداً — أدخل الكود عند الاشتراك في الأداة مباشرة.
@@ -1597,13 +1686,13 @@
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">
+      <button class="faq-q" aria-expanded="false">
         <div class="faq-q-text">
           <div class="faq-icon">🛡️</div>
           هل الدفع آمن؟
         </div>
         <div class="faq-arrow">▼</div>
-      </div>
+      </button>
       <div class="faq-a">
         <div class="faq-a-inner">
           نعم، <strong>الدفع آمن 100%</strong>. نستخدم بوابات دفع موثوقة ومشفرة لحماية بياناتك المالية. جميع المعاملات محمية بأعلى معايير الأمان الإلكتروني.
@@ -1633,7 +1722,7 @@
         <div class="cd-icon">📧</div>
         <div class="cd-text">
           <label>البريد الإلكتروني</label>
-          <span><a href="mailto:owellarj@gmail.com">owellarj@gmail.com</a></span>
+          <span><a href="/cdn-cgi/l/email-protection#29465e4c4545485b43694e44484045074a4644"><span class="__cf_email__" data-cfemail="adc2dac8c1c1ccdfc7edcac0ccc4c183cec2c0">[email&#160;protected]</span></a></span>
         </div>
       </div>
       <div class="contact-detail">
@@ -1650,9 +1739,9 @@
           <span>العربية والإنجليزية</span>
         </div>
       </div>
-      <div style="background:var(--gold-dim); border:1px solid var(--gold-border); border-radius:12px; padding:18px 20px;">
-        <p style="font-size:0.85rem; color:var(--gold); font-weight:700; margin-bottom:6px;">💡 نصيحة</p>
-        <p style="font-size:0.83rem; color:var(--muted); line-height:1.8;">لسرعة الرد، اذكر اسم النظام الذي تسأل عنه في رسالتك</p>
+      <div class="tip-box">
+        <p class="tip-title">💡 نصيحة</p>
+        <p class="tip-text">لسرعة الرد، اذكر اسم النظام الذي تسأل عنه في رسالتك</p>
       </div>
     </div>
 
@@ -1662,16 +1751,16 @@
       <div id="contactForm">
         <div class="form-row">
           <div class="form-group">
-            <label>الاسم *</label>
-            <input type="text" id="fname" placeholder="اسمك الكريم" required>
+            <label for="fname">الاسم *</label>
+            <input type="text" id="fname" placeholder="اسمك الكريم" required autocomplete="name">
           </div>
           <div class="form-group">
-            <label>البريد الإلكتروني *</label>
-            <input type="email" id="femail" placeholder="email@example.com" dir="ltr" required>
+            <label for="femail">البريد الإلكتروني *</label>
+            <input type="email" id="femail" placeholder="email@example.com" dir="ltr" required autocomplete="email">
           </div>
         </div>
         <div class="form-group">
-          <label>الموضوع</label>
+          <label for="fsubject">الموضوع</label>
           <select id="fsubject">
             <option value="">اختر موضوع الرسالة</option>
             <option value="استفسار عن منتج">استفسار عن منتج</option>
@@ -1682,7 +1771,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label>رسالتك *</label>
+          <label for="fmessage">رسالتك *</label>
           <textarea id="fmessage" placeholder="اكتب رسالتك هنا..." required></textarea>
         </div>
         <button class="form-submit" id="submitBtn" onclick="sendContactForm()">
@@ -1704,10 +1793,10 @@
 <!-- CTA -->
 <section class="cta-section">
   <div class="cta-inner anim-item">
-    <div class="section-eyebrow" style="margin-bottom:20px;">ابدأ اليوم</div>
+    <div class="section-eyebrow">ابدأ اليوم</div>
     <h2>حوّل بياناتك إلى <em>قرارات رابحة</em></h2>
     <p>انضم لمئات البائعين العرب الذين يستخدمون أنظمة Owellarj لبناء مشاريعهم على أمازون بثقة وأمان</p>
-    <a href="#products" class="btn-primary" style="font-size:1.1rem; padding:18px 48px;">
+    <a href="#products" class="btn-primary btn-primary-lg">
       تصفح جميع الأنظمة
       <span>←</span>
     </a>
@@ -1716,6 +1805,11 @@
     </div>
   </div>
 </section>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" aria-label="العودة للأعلى">▲</button>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
@@ -1731,10 +1825,10 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Intersection observer for scroll animations
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const el = entry.target;
         const delay = el.dataset.delay || 0;
@@ -1751,14 +1845,35 @@
     observer.observe(el);
   });
 
-  // FAQ accordion
+  // FAQ accordion with ARIA support
   document.querySelectorAll('.faq-q').forEach(q => {
     q.addEventListener('click', () => {
       const item = q.closest('.faq-item');
       const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(o => o.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
+      // Close all open items and reset ARIA
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        q.setAttribute('aria-expanded', 'true');
+      }
     });
+  });
+
+  // Navbar scroll effect
+  const nav = document.querySelector('nav');
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 60;
+    nav.classList.toggle('scrolled', scrolled);
+    backToTop.classList.toggle('visible', window.scrollY > 500);
+  }, { passive: true });
+
+  // Back to top
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   // Hamburger menu
@@ -1767,10 +1882,13 @@
     const btn  = document.getElementById('hamburger');
     menu.classList.toggle('open');
     btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', menu.classList.contains('open'));
   }
   function closeMenu() {
     document.getElementById('mobileMenu').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
+    const btn = document.getElementById('hamburger');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
   }
   // Close menu on outside click
   document.addEventListener('click', e => {
@@ -1812,16 +1930,10 @@
     card.dataset.delay = i * 100;
   });
 
-  // Smooth nav
+  // Smooth scroll with navbar offset
+  const NAV_HEIGHT = 72;
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-</script>
-</body>
-</html>
+      const href = a.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(hr

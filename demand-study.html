@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نظام دراسة الطلب على السوق | Owellarj</title>
+<meta name="description" content="اعرف متى يرتفع الطلب على منتجك ومتى ينخفض قبل أن تدخل السوق. حدد التوقيت المثالي وتجنب المواسم الضعيفة.">
+<meta name="keywords" content="دراسة الطلب, تحليل الطلب, أمازون, مواسم السوق, FBA, Excel, Helium 10">
+<meta name="author" content="Owellarj">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#080b12">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="نظام دراسة الطلب على السوق | Owellarj">
+<meta property="og:description" content="اعرف متى يرتفع الطلب على منتجك ومتى ينخفض قبل أن تدخل السوق. حدد التوقيت المثالي وتجنب المواسم الضعيفة.">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:site_name" content="Owellarj">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "نظام دراسة الطلب على السوق",
+  "description": "اعرف متى يرتفع الطلب على منتجك ومتى ينخفض قبل أن تدخل السوق. حدد التوقيت المثالي وتجنب المواسم الضعيفة.",
+  "brand": { "@type": "Brand", "name": "Owellarj" },
+  "offers": {
+    "@type": "Offer",
+    "price": "129.99",
+    "priceCurrency": "SAR",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+
+<style>
+  :root {
+    --bg: #080b12;
+    --bg2: #0d1220;
+    --card: #0f1525;
+    --card2: #131929;
+    --gold: #f0b429;
+    --gold2: #ffd166;
+    --gold-dim: rgba(240,180,41,0.12);
+    --gold-border: rgba(240,180,41,0.25);
+    --blue: #1e6fff;
+    --blue-dim: rgba(30,111,255,0.1);
+    --white: #f0f4ff;
+    --muted: #7a8aaa;
+    --border: rgba(255,255,255,0.06);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 5%;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8,11,18,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav.scrolled { background: rgba(8,11,18,0.95); }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--gold), #e8930a);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #080b12;
+    font-family: 'Tajawal', sans-serif;
+  }
+  .logo-text {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+  .logo-text span { color: var(--gold); }
+  nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    align-items: center;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  nav ul li a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--gold);
+    color: #080b12 !important;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(240,180,41,0.35) !important;
+    color: #080b12 !important;
+  }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: transparent;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: flex;
+    position: fixed;
+    top: 72px; left: 0; right: 0;
+    background: rgba(8,11,18,0.98);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 5% 32px;
+    z-index: 99;
+    flex-direction: column;
+    gap: 4px;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .mobile-menu a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 16px;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+    display: block;
+  }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.04); color: var(--white); }
+  .mobile-menu .mobile-cta {
+    background: var(--gold);
+    color: #080b12 !important;
+    font-weight: 800 !important;
+    text-align: center;
+    margin-top: 8px;
+    padding: 15px 16px;
+  }
+  .mobile-menu .mobile-cta:hover { background: #e8930a; }
+
+  /* HERO */
+  .product-hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 130px 5% 80px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,180,41,0.08) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,111,255,0.07) 0%, transparent 70%);
+    bottom: 10%;
+    right: 10%;
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    margin: 0 auto;
+    animation: fadeUp 0.8s ease both;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 28px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--gold); }
+
+  .product-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 24px;
+  }
+  .product-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    color: var(--gold);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 7px 18px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .hero-content h1 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+  .hero-content h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-price {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .hero-price .currency {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 32px;
+    line-height: 1.9;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--gold), #e8930a);
+    color: #080b12;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    padding: 16px 48px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(240,180,41,0.4);
+  }
+  .hero-guarantee {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .hero-guarantee span {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-guarantee span::before {
+    content: '\2713';
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+  .section-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 5%;
+  }
+  .section-title {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 48px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* FEATURES GRID */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .feature-card:hover {
+    border-color: var(--gold-border);
+    transform: translateY(-4px);
+  }
+  .feature-icon {
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+  }
+  .feature-card h3 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+  .feature-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* WHAT YOU GET */
+  .deliverables {
+    background: var(--card);
+    border: 1px solid var(--gold-border);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .deliverable-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .deliverable-item:last-child { border-bottom: none; }
+  .deliverable-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .deliverable-text h4 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .deliverable-text p {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  /* REQUIREMENTS */
+  .requirements {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .req-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 260px;
+  }
+  .req-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--blue-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .req-card h4 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+  .req-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* FAQ */
+  .faq-list {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .faq-item.open { border-color: var(--gold-border); }
+  .faq-q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: right;
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--gold); }
+  .faq-arrow {
+    transition: transform 0.3s;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--gold); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+  .faq-item.open .faq-a {
+    max-height: 300px;
+    padding: 0 24px 20px;
+  }
+  .faq-a p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  /* NOTE */
+  .note-banner {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--gold2);
+    font-weight: 600;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    text-align: center;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .final-cta .section-wrapper {
+    padding: 64px 5%;
+  }
+  .final-cta h2 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+  .final-cta .price-tag {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .final-cta .price-tag .cur {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .final-cta p {
+    color: var(--muted);
+    margin-bottom: 32px;
+    font-size: 1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 48px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-text { font-size: 0.88rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, background 0.2s;
+  }
+  .back-to-top.visible { opacity: 1; visibility: visible; }
+  .back-to-top:hover { background: var(--card2); color: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .hero-content h1 { font-size: 2.2rem; }
+    .hero-price { font-size: 1.8rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-content h1 { font-size: 1.7rem; }
+    .hero-price { font-size: 1.5rem; }
+    .hero-cta { padding: 14px 32px; font-size: 1rem; }
+    .section-title { font-size: 1.5rem; }
+    .deliverables { padding: 24px; }
+    .req-card { min-width: 100%; }
+    .hero-guarantee { gap: 12px; flex-direction: column; align-items: center; }
+    .product-hero { padding: 110px 5% 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">O</div>
+    <span class="logo-text">Owellarj<span>.</span></span>
+  </a>
+  <ul>
+    <li><a href="index.html#products">المنتجات</a></li>
+    <li><a href="index.html#how">كيف يعمل</a></li>
+    <li><a href="index.html#why">لماذا نحن</a></li>
+    <li><a href="index.html#faq">الأسئلة الشائعة</a></li>
+    <li><a href="index.html#contact">تواصل معنا</a></li>
+    <li><a href="index.html#products" class="nav-cta">تصفح المنتجات</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="القائمة">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#products" onclick="closeMenu()">📦 المنتجات</a>
+  <a href="index.html#how" onclick="closeMenu()">⚡ كيف يعمل</a>
+  <a href="index.html#why" onclick="closeMenu()">🏆 لماذا نحن</a>
+  <a href="index.html#faq" onclick="closeMenu()">❓ الأسئلة الشائعة</a>
+  <a href="index.html#contact" onclick="closeMenu()">✉️ تواصل معنا</a>
+  <a href="index.html#products" class="mobile-cta" onclick="closeMenu()">تصفح المنتجات ←</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<main>
+
+<!-- HERO -->
+<section class="product-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <a href="index.html#products" class="back-link">→ العودة للمنتجات</a>
+    <div class="product-icon">📈</div>
+    <div class="product-badge">تحليل الطلب 📊</div>
+    <h1>نظام دراسة <em>الطلب</em> على السوق</h1>
+    <div class="hero-price"><span class="currency">SAR</span> 129.99</div>
+    <p class="hero-desc">اعرف متى يرتفع الطلب على منتجك ومتى ينخفض قبل أن تدخل السوق. حدد التوقيت المثالي وتجنب المواسم الضعيفة.</p>
+    <a href="#" class="hero-cta">اشتري الآن ←</a>
+    <div class="hero-guarantee">
+      <span>تسليم فوري</span>
+      <span>دفع آمن 100%</span>
+      <span>شرح فيديو مفصل</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-wrapper">
+    <h2 class="section-title fade-up">ماذا يقدّم لك النظام؟</h2>
+    <p class="section-subtitle fade-up">أدوات تحليل متقدمة تمنحك رؤية واضحة لاتجاهات الطلب قبل أن تستثمر ريالاً واحداً</p>
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📊</div>
+        <h3>تحليل اتجاه الطلب السنوي</h3>
+        <p>تابع حركة الطلب على مدار العام واكتشف الأنماط الموسمية لمنتجك. اتخذ قراراتك بناءً على بيانات حقيقية لا على التخمين.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📅</div>
+        <h3>تحديد مواسم الذروة والانخفاض</h3>
+        <p>اعرف بالضبط متى يبلغ الطلب ذروته ومتى يتراجع. خطط لإطلاق منتجك وحملاتك التسويقية في التوقيت المثالي.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🔍</div>
+        <h3>اكتشاف المنتجات المؤقتة (trends vs evergreen)</h3>
+        <p>ميّز بين المنتجات ذات الطلب المستمر والمنتجات الموسمية أو العابرة. تجنب الاستثمار في منتجات ستفقد طلبها قريباً.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📦</div>
+        <h3>تخطيط المخزون حسب المواسم</h3>
+        <p>خطط لكميات المخزون المطلوبة لكل موسم بدقة. تجنب نفاد المخزون في أوقات الذروة أو تكدّسه في الفترات الهادئة.</p>
+      </div>
+    </div>
+    <div class="note-banner fade-up">⚠️ يتطلب Helium 10 للاستخدام</div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section id="deliverables" style="background: var(--bg2);">
+  <div class="section-wrapper">
+    <h2 class="section-title fade-up">ماذا ستحصل عليه؟</h2>
+    <p class="section-subtitle fade-up">كل ما تحتاجه للبدء في تحليل الطلب بشكل احترافي</p>
+    <div class="deliverables fade-up">
+      <div class="deliverable-item">
+        <div class="deliverable-icon">📁</div>
+        <div class="deliverable-text">
+          <h4>ملف Excel احترافي</h4>
+          <p>نظام متكامل لتحليل اتجاهات الطلب جاهز للاستخدام فوراً</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">🎥</div>
+        <div class="deliverable-text">
+          <h4>فيديو شرح تفصيلي</h4>
+          <p>شرح خطوة بخطوة لكيفية استخدام النظام وتحليل بيانات الطلب</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">♾️</div>
+        <div class="deliverable-text">
+          <h4>استخدام غير محدود</h4>
+          <p>استخدم النظام لتحليل الطلب على عدد غير محدود من المنتجات</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">⚡</div>
+        <div class="deliverable-text">
+          <h4>تسليم فوري</h4>
+          <p>احصل على النظام مباشرة بعد الدفع — لا انتظار</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section id="requirements">
+  <div class="section-wrapper">
+    <h2 class="section-title fade-up">المتطلبات</h2>
+    <p class="section-subtitle fade-up">تأكد من توفر هذه البرامج قبل الشراء</p>
+    <div class="requirements fade-up">
+      <div class="req-card">
+        <div class="req-icon">📊</div>
+        <div>
+          <h4>Microsoft Excel</h4>
+          <p>لتشغيل ملف النظام والتحليلات</p>
+        </div>
+      </div>
+      <div class="req-card">
+        <div class="req-icon">🔧</div>
+        <div>
+          <h4>Helium 10</h4>
+          <p>مطلوب لاستخراج بيانات الطلب من أمازون</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background: var(--bg2);">
+  <div class="section-wrapper">
+    <h2 class="section-title fade-up">أسئلة شائعة</h2>
+    <p class="section-subtitle fade-up">إجابات سريعة على أكثر الأسئلة تكراراً</p>
+    <div class="faq-list">
+      <div class="faq-item fade-up">
+        <button class="faq-q" aria-expanded="false">
+          ما الفرق بين هذا النظام ونظام دراسة السوق؟
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <p>نظام دراسة السوق يحلل المنافسين والأسعار والعلامات التجارية، بينما نظام دراسة الطلب يركز على حركة الطلب عبر الزمن — متى يرتفع ومتى ينخفض، وهل المنتج موسمي أم مستمر. كلاهما مكمل للآخر.</p>
+        </div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-q" aria-expanded="false">
+          هل يعمل النظام مع جميع أسواق أمازون؟
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <p>نعم، النظام يعمل مع جميع مواقع أمازون حول العالم — أمازون أمريكا، السعودية، الإمارات، بريطانيا، ألمانيا وغيرها. كل ما تحتاجه هو بيانات Helium 10 من أي سوق تختاره.</p>
+        </div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-q" aria-expanded="false">
+          هل أحتاج خبرة تقنية لاستخدام النظام؟
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <p>لا، النظام مصمم ليكون سهل الاستخدام حتى للمبتدئين. يأتي مع فيديو شرح تفصيلي خطوة بخطوة. كل ما تحتاجه هو معرفة أساسية ببرنامج Excel واشتراك في Helium 10.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="section-wrapper">
+    <h2 class="fade-up">اكتشف توقيت السوق المثالي</h2>
+    <div class="price-tag fade-up"><span class="cur">SAR</span> 129.99</div>
+    <p class="fade-up">حدد أفضل وقت لدخول السوق واتخذ قرارات مبنية على بيانات حقيقية</p>
+    <a href="#" class="hero-cta fade-up">اشتري الآن ←</a>
+  </div>
+</section>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة للأعلى">▲</button>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="logo-icon">O</div>
+    <span class="logo-text">Owellarj<span>.</span></span>
+  </div>
+  <div class="footer-text">&copy; 2026 Owellarj. جميع الحقوق محفوظة.</div>
+  <div class="footer-links">
+    <a href="#">سياسة الخصوصية</a>
+    <a href="#">الشروط والأحكام</a>
+    <a href="index.html#contact">تواصل معنا</a>
+  </div>
+</footer>
+
+<script>
+  // Intersection observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.dataset.delay || 0;
+        setTimeout(() => el.classList.add('visible'), delay);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.dataset.delay = (i % 8) * 70;
+    observer.observe(el);
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        q.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Navbar scroll effect
+  const nav = document.querySelector('nav');
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+    backToTop.classList.toggle('visible', window.scrollY > 500);
+  }, { passive: true });
+
+  // Back to top
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Hamburger menu
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn  = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', menu.classList.contains('open'));
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    const btn = document.getElementById('hamburger');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+  document.addEventListener('click', e => {
+    const menu = document.getElementById('mobileMenu');
+    const btn  = document.getElementById('hamburger');
+    if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
+  });
+</script>
+
+</body>
+</html>
