@@ -573,11 +573,17 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.05 });
 
   document.querySelectorAll('.about-section, .vm-card').forEach((el, i) => {
     el.style.transitionDelay = (i * 80) + 'ms';
     observer.observe(el);
+  });
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".anim-item, .fade-up, .product-card, .step-card, .testi-card, .why-point, .faq-item").forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add("visible");
+    });
   });
 
   const nav = document.getElementById('navbar');

@@ -835,6 +835,7 @@
     transform: translateY(24px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
+  .hero-content .anim-item, .hero .anim-item { opacity: 1 !important; transform: none !important; }
   .anim-item.visible {
     opacity: 1;
     transform: none;
@@ -1246,7 +1247,7 @@
 
 <!-- NAVBAR -->
 <nav>
-  <a href="#" class="logo">
+  <a href="index.html" class="logo">
     <span class="logo-text">Owellarj</span>
   </a>
   <ul>
@@ -1898,7 +1899,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Intersection observer for scroll animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -1909,13 +1910,23 @@
         observer.unobserve(el);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.05 });
 
   document.querySelectorAll('.anim-item, .product-card, .step-card, .testi-card, .why-point, .faq-item').forEach((el, i) => {
     if (el.classList.contains('product-card') || el.classList.contains('step-card') || el.classList.contains('testi-card') || el.classList.contains('faq-item')) {
       el.dataset.delay = (i % 6) * 70;
     }
     observer.observe(el);
+  });
+
+  // Make elements in viewport visible immediately on load
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.anim-item, .product-card, .step-card, .testi-card, .why-point, .faq-item').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('visible');
+      }
+    });
   });
 
   // FAQ accordion with ARIA support

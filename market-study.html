@@ -1073,11 +1073,17 @@
         observer.unobserve(el);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.05 });
 
   document.querySelectorAll('.fade-up').forEach((el, i) => {
     el.dataset.delay = (i % 8) * 70;
     observer.observe(el);
+  });
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".anim-item, .fade-up, .product-card, .step-card, .testi-card, .why-point, .faq-item").forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add("visible");
+    });
   });
 
   // FAQ accordion
