@@ -692,6 +692,45 @@
     .hero-guarantee { gap: 12px; flex-direction: column; align-items: center; }
     .product-hero { padding: 110px 5% 60px; }
   }
+
+  /* GUARANTEE BADGE */
+  .guarantee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(76,175,80,0.1);
+    border: 1px solid rgba(76,175,80,0.3);
+    color: #6fcf72;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .guarantee-badge::before { content: '🛡️'; font-size: 0.85rem; }
+  .payment-logos {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pay-logo {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #c8d0e0;
+  }
+  .pay-logo.visa   { color: #1a6be0; background: rgba(26,107,224,0.1); border-color: rgba(26,107,224,0.25); }
+  .pay-logo.master { color: #eb5757; background: rgba(235,87,87,0.1);  border-color: rgba(235,87,87,0.25); }
+  .pay-logo.mada   { color: #00a86b; background: rgba(0,168,107,0.1);  border-color: rgba(0,168,107,0.25); }
+  .pay-logo.ssl    { color: #f0b429; background: rgba(240,180,41,0.1); border-color: rgba(240,180,41,0.25); }
+
 </style>
 </head>
 <body>
@@ -746,7 +785,16 @@
       <span>دفع آمن 100%</span>
       <span>شرح فيديو مفصل</span>
     </div>
+  
+  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:16px;">
+    <span class="guarantee-badge">ضمان الرضا 7 أيام</span>
+    <div class="payment-logos">
+      <span class="pay-logo visa">VISA</span>
+      <span class="pay-logo master">Mastercard</span>
+      <span class="pay-logo ssl">🔒 SSL</span>
+    </div>
   </div>
+</div>
 </section>
 
 <!-- FEATURES -->
@@ -777,7 +825,16 @@
       </div>
     </div>
     <div class="note-banner fade-up">⚠️ يتطلب Helium 10 للاستخدام</div>
+  
+  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:16px;">
+    <span class="guarantee-badge">ضمان الرضا 7 أيام</span>
+    <div class="payment-logos">
+      <span class="pay-logo visa">VISA</span>
+      <span class="pay-logo master">Mastercard</span>
+      <span class="pay-logo ssl">🔒 SSL</span>
+    </div>
   </div>
+</div>
 </section>
 
 <!-- WHAT YOU GET -->
@@ -902,6 +959,11 @@
   <div class="footer-links">
     <a href="about.html">من نحن</a>
     <a href="index.html#contact">تواصل معنا</a>
+  </div>
+  <div class="payment-logos" style="justify-content:flex-start;">
+    <span class="pay-logo visa">VISA</span>
+    <span class="pay-logo master">Mastercard</span>
+    <span class="pay-logo ssl">🔒 SSL</span>
   </div>
 </footer>
 
