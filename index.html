@@ -1186,6 +1186,147 @@
     .metric-cards { grid-template-columns: 1fr 1fr; }
     footer { flex-direction: column; text-align: center; }
   }
+
+  /* CHATBOT */
+  .chat-bubble {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--gold), #e8930a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 8px 24px rgba(240,180,41,0.4);
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .chat-bubble:hover { transform: scale(1.08); box-shadow: 0 12px 32px rgba(240,180,41,0.5); }
+  .chat-bubble svg { width: 26px; height: 26px; fill: #080b12; }
+  .chat-window {
+    position: fixed;
+    bottom: 100px;
+    right: 32px;
+    width: 360px;
+    max-height: 520px;
+    background: var(--card);
+    border: 1px solid var(--gold-border);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 998;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .chat-window.open { opacity: 1; transform: none; pointer-events: auto; }
+  .chat-header {
+    padding: 18px 20px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chat-header-info { display: flex; align-items: center; gap: 10px; }
+  .chat-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--gold), #e8930a);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 900;
+    color: #080b12; font-family: 'Tajawal', sans-serif;
+  }
+  .chat-header-text h4 { font-size: 0.9rem; font-weight: 700; color: var(--white); }
+  .chat-header-text span { font-size: 0.75rem; color: #4caf50; font-weight: 600; }
+  .chat-close {
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; font-size: 1.2rem; padding: 4px;
+    transition: color 0.2s;
+  }
+  .chat-close:hover { color: var(--white); }
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 280px;
+    max-height: 340px;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .msg {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    direction: rtl;
+  }
+  .msg.bot {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: #b0bcd0;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+  .msg.user {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    color: var(--white);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .msg.typing { opacity: 0.6; font-style: italic; }
+  .chat-footer {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: var(--bg2);
+  }
+  .chat-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    direction: rtl;
+    transition: border-color 0.2s;
+  }
+  .chat-input:focus { border-color: var(--gold-border); }
+  .chat-input::placeholder { color: #3a4a62; }
+  .chat-send {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--gold), #e8930a);
+    border: none; border-radius: 10px;
+    cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .chat-send:hover { transform: scale(1.08); }
+  .chat-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .chat-send svg { width: 16px; height: 16px; fill: #080b12; }
+  @media (max-width: 480px) {
+    .chat-window { right: 12px; left: 12px; width: auto; bottom: 90px; }
+    .chat-bubble { bottom: 20px; right: 20px; }
+  }
 </style>
 </head>
 <body>
@@ -1946,6 +2087,104 @@
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
+</script>
+
+<!-- CHATBOT -->
+<button class="chat-bubble" id="chatBubble" onclick="toggleChat()" aria-label="مساعد Owellarj">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 13H7v-2h4v2zm0-4H7V9h4v2zm5 4h-3v-2h3v2zm0-4h-3V9h3v2z"/>
+  </svg>
+</button>
+
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">O</div>
+      <div class="chat-header-text">
+        <h4>مساعد Owellarj</h4>
+        <span>● متصل الآن</span>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg bot">مرحباً! 👋 أنا مساعد Owellarj. يمكنني مساعدتك في معرفة المزيد عن أنظمتنا وأدواتنا لبائعي أمازون. كيف أستطيع مساعدتك؟</div>
+  </div>
+  <div class="chat-footer">
+    <button class="chat-send" id="chatSend" onclick="sendMessage()">
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+    </button>
+    <input class="chat-input" id="chatInput" type="text" placeholder="اكتب سؤالك هنا..." onkeydown="if(event.key==='Enter')sendMessage()">
+  </div>
+</div>
+
+<script>
+const SYSTEM_PROMPT = `أنت مساعد ذكي لموقع Owellarj، متخصص في مساعدة بائعي أمازون في الوطن العربي. أجب بالعربية دائماً بشكل مختصر وودود.
+
+معلومات المنتجات:
+1. نظام دراسة السوق - أمازون (149.99 ر.س): يحلل الفروقات بين المنتجات، الفئات السعرية، نسبة استحواذ العلامات التجارية، تحليل البائعين حسب الدول. يتطلب Helium 10.
+2. نظام FBA Fees Tracker (149.99 ر.س): متابعة أسبوعية لرسوم التخزين، تحليل رسوم التخزين طويلة الأمد، اكتشاف الزيادات المفاجئة. لا يحتاج Helium 10.
+3. نظام متابعة الموردين (99.99 ر.س): ملف لكل مورد، متابعة الأسعار، تقييم الأداء، إدارة الموردين البدلاء. لا يحتاج Helium 10.
+4. نظام دراسة الطلب على السوق (129.99 ر.س): تحليل اتجاه الطلب السنوي، مواسم الذروة والانخفاض، اكتشاف المنتجات المؤقتة. يتطلب Helium 10.
+5. كود خصم Data Dive (39.99 ر.س): خصم 40 دولار على جميع خطط Data Dive، للحسابات الجديدة فقط.
+
+جميع الأنظمة: Excel فقط بدون برامج إضافية، تسليم فوري بعد الدفع، فيديو شرح مع كل نظام، تعمل مع جميع مواقع أمازون.
+التواصل: owellarj@gmail.com
+الدفع: آمن 100% عبر بوابات موثوقة.
+أجب بإيجاز ووضوح، لا تتجاوز 3 جمل في كل رد.`;
+
+let chatOpen = false;
+let isLoading = false;
+const history = [];
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open', chatOpen);
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg || isLoading) return;
+  input.value = '';
+  addMsg(msg, 'user');
+  history.push({ role: 'user', content: msg });
+  isLoading = true;
+  document.getElementById('chatSend').disabled = true;
+  const typingEl = addMsg('...', 'bot typing');
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        system: SYSTEM_PROMPT,
+        messages: history
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'عذراً، حدث خطأ. تواصل معنا على owellarj@gmail.com';
+    typingEl.textContent = reply;
+    typingEl.classList.remove('typing');
+    history.push({ role: 'assistant', content: reply });
+  } catch(e) {
+    typingEl.textContent = 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.';
+    typingEl.classList.remove('typing');
+  }
+  isLoading = false;
+  document.getElementById('chatSend').disabled = false;
+}
+
+function addMsg(text, type) {
+  const el = document.createElement('div');
+  el.className = 'msg ' + type;
+  el.textContent = text;
+  const container = document.getElementById('chatMessages');
+  container.appendChild(el);
+  container.scrollTop = container.scrollHeight;
+  return el;
+}
 </script>
 </body>
 </html>
