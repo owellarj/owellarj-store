@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>من نحن | Owellarj</title>
+<meta name="description" content="نحن شركة متخصصة في تطوير أنظمة وأدوات ذكية لتمكين روّاد التجارة الإلكترونية في الوطن العربي من اتخاذ قرارات دقيقة مبنية على البيانات.">
+<meta name="author" content="Owellarj">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#080b12">
+<meta property="og:type" content="website">
+<meta property="og:title" content="من نحن | Owellarj">
+<meta property="og:description" content="نحن شركة متخصصة في تطوير أنظمة وأدوات ذكية لتمكين روّاد التجارة الإلكترونية في الوطن العربي.">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:site_name" content="Owellarj">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080b12;
+    --bg2: #0d1220;
+    --card: #0f1525;
+    --card2: #131929;
+    --gold: #f0b429;
+    --gold2: #ffd166;
+    --gold-dim: rgba(240,180,41,0.12);
+    --gold-border: rgba(240,180,41,0.25);
+    --blue: #1e6fff;
+    --blue-dim: rgba(30,111,255,0.1);
+    --white: #f0f4ff;
+    --muted: #7a8aaa;
+    --border: rgba(255,255,255,0.06);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 5%;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    direction: ltr;
+    background: rgba(8,11,18,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.3); }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-text {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+  nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    align-items: center;
+    direction: rtl;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  nav ul li a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--gold);
+    color: #080b12 !important;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(240,180,41,0.35) !important;
+    color: #080b12 !important;
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: transparent;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--white); border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display: flex;
+    position: fixed;
+    top: 72px; left: 0; right: 0;
+    background: rgba(8,11,18,0.98);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 5% 32px;
+    z-index: 99;
+    flex-direction: column;
+    gap: 4px;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .mobile-menu.open { transform: translateY(0); opacity: 1; visibility: visible; pointer-events: auto; }
+  .mobile-menu a {
+    text-decoration: none; color: var(--muted); font-size: 1rem; font-weight: 600;
+    padding: 14px 16px; border-radius: 10px; transition: background 0.2s, color 0.2s; display: block;
+  }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.04); color: var(--white); }
+  .mobile-menu .mobile-cta {
+    background: var(--gold); color: #080b12 !important; font-weight: 800 !important;
+    text-align: center; margin-top: 8px; padding: 15px 16px;
+  }
+
+  /* HERO */
+  .about-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 5% 80px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,180,41,0.07) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -55%);
+    pointer-events: none;
+  }
+  .about-hero-content { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 0.88rem; font-weight: 600;
+    text-decoration: none; margin-bottom: 32px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--gold); }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px; padding: 6px 16px;
+    border: 1px solid var(--gold-border); border-radius: 100px;
+    background: var(--gold-dim);
+  }
+  .about-hero h1 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900; line-height: 1.15;
+    margin-bottom: 24px; letter-spacing: -1px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .about-hero h1 em { font-style: normal; color: var(--gold); }
+  .about-hero-desc {
+    font-size: clamp(1rem, 2.5vw, 1.18rem);
+    color: var(--muted); line-height: 1.9; max-width: 640px; margin: 0 auto;
+    animation: fadeUp 0.7s ease 0.15s both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* MAIN CONTENT */
+  .about-content {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto;
+    padding: 0 5% 120px;
+  }
+
+  /* INTRO BLOCK */
+  .intro-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px;
+    margin-bottom: 48px;
+    position: relative; overflow: hidden;
+  }
+  .intro-block::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .intro-block p {
+    font-size: 1.05rem; color: #b0bcd0; line-height: 2;
+  }
+  .intro-block p + p { margin-top: 20px; }
+
+  /* SECTION BLOCKS */
+  .about-section {
+    margin-bottom: 40px;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .about-section.visible { opacity: 1; transform: none; }
+
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px;
+    transition: border-color 0.3s;
+  }
+  .section-card:hover { border-color: var(--gold-border); }
+
+  .section-title {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.6rem; font-weight: 900;
+    margin-bottom: 24px; line-height: 1.3;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: var(--gold-dim); border: 1px solid var(--gold-border);
+    border-radius: 12px; display: flex; align-items: center;
+    justify-content: center; font-size: 1.2rem;
+  }
+  .section-card p {
+    font-size: 0.98rem; color: #b0bcd0; line-height: 2; margin-bottom: 20px;
+  }
+  .section-card p:last-child { margin-bottom: 0; }
+
+  /* LIST ITEMS */
+  .about-list {
+    display: flex; flex-direction: column; gap: 14px;
+    margin-top: 8px;
+  }
+  .about-list-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.95rem; color: #b0bcd0; line-height: 1.7;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .about-list-item:hover { border-color: var(--gold-border); transform: translateX(-4px); }
+  .about-list-item::before {
+    content: '';
+    width: 8px; height: 8px; flex-shrink: 0;
+    background: var(--gold); border-radius: 50%;
+    margin-top: 7px;
+  }
+
+  /* TWO COLUMN GRID */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  /* VISION / MISSION CARDS */
+  .vm-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s;
+  }
+  .vm-card.visible { opacity: 1; transform: none; }
+  .vm-card:hover { border-color: var(--gold-border); }
+  .vm-card::after {
+    content: '';
+    position: absolute; bottom: -40px; left: -40px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,180,41,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .vm-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 16px; display: block;
+  }
+  .vm-card h3 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.15rem; font-weight: 800;
+    line-height: 1.6; color: var(--white);
+  }
+
+  /* CTA */
+  .about-cta {
+    text-align: center; padding: 80px 5%;
+    position: relative; overflow: hidden;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+  .about-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(240,180,41,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .about-cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+  .about-cta h2 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900; line-height: 1.25;
+    margin-bottom: 16px; letter-spacing: -0.5px;
+  }
+  .about-cta h2 em { font-style: normal; color: var(--gold); }
+  .about-cta p { font-size: 1rem; color: var(--muted); margin-bottom: 36px; line-height: 1.9; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, var(--gold), #e8930a);
+    color: #080b12; font-family: 'Tajawal', sans-serif;
+    font-weight: 800; font-size: 1.05rem;
+    padding: 16px 40px; border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 8px 32px rgba(240,180,41,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(240,180,41,0.4); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 48px 5%;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; gap: 24px;
+    position: relative; z-index: 1;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-text { font-size: 0.88rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed; bottom: 32px; left: 32px;
+    width: 44px; height: 44px;
+    background: var(--gold); color: #080b12;
+    border: none; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; z-index: 90;
+    opacity: 0; visibility: hidden; transform: translateY(12px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(240,180,41,0.3);
+  }
+  .back-to-top.visible { opacity: 1; visibility: visible; transform: none; }
+  .back-to-top:hover { box-shadow: 0 8px 28px rgba(240,180,41,0.45); transform: translateY(-2px); }
+
+  @media (max-width: 900px) {
+    nav ul { display: none; }
+    .hamburger { display: flex; }
+    .two-col { grid-template-columns: 1fr; }
+    .intro-block, .section-card, .vm-card { padding: 32px 24px; }
+  }
+  @media (max-width: 600px) {
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <span class="logo-text">Owellarj</span>
+  </a>
+  <ul>
+    <li><a href="index.html#products">المنتجات</a></li>
+    <li><a href="index.html#how">كيف يعمل</a></li>
+    <li><a href="index.html#why">لماذا نحن</a></li>
+    <li><a href="index.html#faq">الأسئلة الشائعة</a></li>
+    <li><a href="index.html#contact">تواصل معنا</a></li>
+    <li><a href="index.html#products" class="nav-cta">تصفح المنتجات</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="القائمة">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#products" onclick="closeMenu()">📦 المنتجات</a>
+  <a href="index.html#how" onclick="closeMenu()">⚡ كيف يعمل</a>
+  <a href="index.html#why" onclick="closeMenu()">🏆 لماذا نحن</a>
+  <a href="index.html#faq" onclick="closeMenu()">❓ الأسئلة الشائعة</a>
+  <a href="about.html" onclick="closeMenu()">👥 من نحن</a>
+  <a href="index.html#contact" onclick="closeMenu()">✉️ تواصل معنا</a>
+  <a href="index.html#products" class="mobile-cta" onclick="closeMenu()">تصفح المنتجات ←</a>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="about-hero-content">
+    <a href="index.html" class="back-link">← العودة للرئيسية</a>
+    <div class="section-eyebrow">من نحن</div>
+    <h1>نبني أدوات تحوّل<br><em>البيانات إلى قرارات</em></h1>
+    <p class="about-hero-desc">نحن شركة متخصصة في تطوير أنظمة وأدوات ذكية لتمكين روّاد التجارة الإلكترونية في الوطن العربي من اتخاذ قرارات دقيقة مبنية على البيانات.</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<div class="about-content">
+
+  <!-- Intro -->
+  <div class="intro-block about-section">
+    <p>نؤمن أن النجاح في أمازون لا يعتمد على الحظ، بل على الوضوح، والتحليل، والتنفيذ الذكي. لذلك نبني حلولًا تحول البيانات المعقدة إلى رؤى بسيطة وقابلة للتنفيذ، تساعد على تسريع النمو ورفع كفاءة العمل.</p>
+  </div>
+
+  <!-- فلسفتنا -->
+  <div class="about-section">
+    <div class="section-card">
+      <div class="section-title">
+        <div class="section-icon">💡</div>
+        فلسفتنا
+      </div>
+      <p>نرى أن أكبر عائق أمام النمو ليس نقص الفرص، بل ضبابية المعلومات وتعقيد الأدوات.</p>
+      <p>لهذا نعمل على:</p>
+      <div class="about-list">
+        <div class="about-list-item">تبسيط البيانات وتحويلها إلى قرارات واضحة</div>
+        <div class="about-list-item">تقليل التعقيد في العمليات اليومية</div>
+        <div class="about-list-item">تمكين المستخدم من السيطرة الكاملة على عمله</div>
+      </div>
+      <p style="margin-top:24px;">نحن لا نقدم أدوات فقط، بل نبني أنظمة تفكير تساعدك على العمل بذكاء أكبر.</p>
+    </div>
+  </div>
+
+  <!-- ما الذي نقدمه -->
+  <div class="about-section">
+    <div class="section-card">
+      <div class="section-title">
+        <div class="section-icon">🛠️</div>
+        ما الذي نقدمه
+      </div>
+      <p>نطوّر مجموعة من الأدوات المصممة لمساعدة مستخدمينا على:</p>
+      <div class="about-list">
+        <div class="about-list-item">تحليل الأسواق والمنتجات بدقة</div>
+        <div class="about-list-item">فهم المنافسة بشكل أعمق</div>
+        <div class="about-list-item">اتخاذ قرارات مبنية على بيانات حقيقية</div>
+        <div class="about-list-item">تحسين الأداء وتوفير الوقت</div>
+      </div>
+      <p style="margin-top:24px;">وقد تم تطوير هذه الأنظمة والأدوات بالتعاون مع بائعين محترفين في مجال أمازون، لضمان أنها مبنية على خبرة حقيقية وتحديات واقعية من داخل السوق.</p>
+      <p>كل ما نقدمه مبني على هدف واحد: <strong style="color:var(--gold);">تحقيق نتائج ملموسة.</strong></p>
+    </div>
+  </div>
+
+  <!-- لماذا نحن -->
+  <div class="about-section">
+    <div class="section-card">
+      <div class="section-title">
+        <div class="section-icon">🏆</div>
+        لماذا نحن
+      </div>
+      <div class="about-list">
+        <div class="about-list-item">تركيز كامل على البساطة والفعالية</div>
+        <div class="about-list-item">أدوات مبنية على خبرة عملية حقيقية</div>
+        <div class="about-list-item">تطوير بالشراكة مع محترفين في السوق</div>
+        <div class="about-list-item">تصميم يضع المستخدم في مركز كل قرار</div>
+        <div class="about-list-item">تحسين وتحديث مستمر لمواكبة تغيّرات السوق</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- رؤيتنا ورسالتنا -->
+  <div class="two-col">
+    <div class="vm-card">
+      <span class="vm-label">رؤيتنا</span>
+      <h3>أن نصبح المنصة التي يعتمد عليها روّاد التجارة الإلكترونية في الوطن العربي لاتخاذ قراراتهم بثقة، وبناء أعمال قادرة على المنافسة في الأسواق العالمية.</h3>
+    </div>
+    <div class="vm-card">
+      <span class="vm-label">رسالتنا</span>
+      <h3>تمكين روّاد الأعمال في الوطن العربي من بناء أعمال قوية عبر أدوات ذكية تختصر الطريق، وتمنحهم وضوحًا حقيقيًا في عالم مليء بالضوضاء.</h3>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<section class="about-cta">
+  <div class="about-cta-inner">
+    <div class="section-eyebrow">ابدأ الآن</div>
+    <h2>حوّل بياناتك إلى <em>قرارات رابحة</em></h2>
+    <p>انضم لمئات البائعين العرب الذين يستخدمون أنظمة Owellarj لبناء مشاريعهم على أمازون بثقة وأمان</p>
+    <a href="index.html#products" class="btn-primary">تصفح جميع الأنظمة <span>←</span></a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <span class="logo-text">Owellarj</span>
+  </div>
+  <div class="footer-text">© 2026 Owellarj. جميع الحقوق محفوظة.</div>
+  <div class="footer-links">
+    <a href="about.html">من نحن</a>
+    <a href="index.html#contact">تواصل معنا</a>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="العودة للأعلى">▲</button>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.about-section, .vm-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 80) + 'ms';
+    observer.observe(el);
+  });
+
+  const nav = document.getElementById('navbar');
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+    backToTop.classList.toggle('visible', window.scrollY > 500);
+  }, { passive: true });
+
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', menu.classList.contains('open'));
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    const btn = document.getElementById('hamburger');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+  document.addEventListener('click', e => {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('hamburger');
+    if (!menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
+  });
+</script>
+</body>
+</html>

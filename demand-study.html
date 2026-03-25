@@ -99,6 +99,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    direction: ltr;
     background: rgba(8,11,18,0.85);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
@@ -133,14 +134,15 @@
   .logo-text span { color: var(--gold); }
   nav ul {
     display: flex;
-    gap: 32px;
+    gap: 20px;
     list-style: none;
     align-items: center;
+    direction: rtl;
   }
   nav ul li a {
     text-decoration: none;
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     font-weight: 600;
     transition: color 0.2s;
   }
@@ -148,10 +150,10 @@
   .nav-cta {
     background: var(--gold);
     color: #080b12 !important;
-    padding: 10px 24px;
+    padding: 9px 18px;
     border-radius: 8px;
     font-weight: 700 !important;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
     transition: transform 0.2s, box-shadow 0.2s !important;
   }
   .nav-cta:hover {
@@ -702,9 +704,9 @@
   </a>
   <ul>
     <li><a href="index.html#products">المنتجات</a></li>
-    <li><a href="index.html#how">كيف يعمل</a></li>
     <li><a href="index.html#why">لماذا نحن</a></li>
     <li><a href="index.html#faq">الأسئلة الشائعة</a></li>
+    <li><a href="about.html">من نحن</a></li>
     <li><a href="index.html#contact">تواصل معنا</a></li>
     <li><a href="index.html#products" class="nav-cta">تصفح المنتجات</a></li>
   </ul>
@@ -719,6 +721,7 @@
   <a href="index.html#how" onclick="closeMenu()">⚡ كيف يعمل</a>
   <a href="index.html#why" onclick="closeMenu()">🏆 لماذا نحن</a>
   <a href="index.html#faq" onclick="closeMenu()">❓ الأسئلة الشائعة</a>
+  <a href="about.html" onclick="closeMenu()">👥 من نحن</a>
   <a href="index.html#contact" onclick="closeMenu()">✉️ تواصل معنا</a>
   <a href="index.html#products" class="mobile-cta" onclick="closeMenu()">تصفح المنتجات ←</a>
 </div>
@@ -736,7 +739,7 @@
     <div class="product-icon">📈</div>
     <div class="product-badge">تحليل الطلب 📊</div>
     <h1>نظام دراسة <em>الطلب</em> على السوق</h1>
-    <div class="hero-price"><span class="currency">SAR</span> 129.99</div>
+    <div class="hero-price"><span class="currency" style="font-size:1.1em;line-height:1;vertical-align:middle;">⃁</span> 129.99</div>
     <p class="hero-desc">اعرف متى يرتفع الطلب على منتجك ومتى ينخفض قبل أن تدخل السوق. حدد التوقيت المثالي وتجنب المواسم الضعيفة.</p>
     <a href="https://owellarj.lemonsqueezy.com/checkout/buy/bf2dc1ca-6f99-44bd-8c50-932afab06f32" class="hero-cta" target="_blank">اشتري الآن ←</a>
     <div class="hero-guarantee">
@@ -881,7 +884,7 @@
 <section class="final-cta">
   <div class="section-wrapper">
     <h2 class="fade-up">اكتشف توقيت السوق المثالي</h2>
-    <div class="price-tag fade-up"><span class="cur">SAR</span> 129.99</div>
+    <div class="price-tag fade-up"><span class="cur" style="font-size:1.1em;line-height:1;vertical-align:middle;">⃁</span> 129.99</div>
     <p class="fade-up">حدد أفضل وقت لدخول السوق واتخذ قرارات مبنية على بيانات حقيقية</p>
     <a href="https://owellarj.lemonsqueezy.com/checkout/buy/bf2dc1ca-6f99-44bd-8c50-932afab06f32" class="hero-cta fade-up" target="_blank">اشتري الآن ←</a>
   </div>
@@ -898,6 +901,7 @@
   </div>
   <div class="footer-text">&copy; 2026 Owellarj. جميع الحقوق محفوظة.</div>
   <div class="footer-links">
+    <a href="about.html">من نحن</a>
     <a href="index.html#contact">تواصل معنا</a>
   </div>
 </footer>
