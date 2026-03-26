@@ -639,16 +639,12 @@ function submitSurvey() {
 السعر المقبول: ${price}
 أدوات مقترحة: ${q5}`;
 
-  // Show success immediately
-  document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-  document.querySelector('.progress-wrap').style.display = 'none';
-  document.getElementById('surveySuccess').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // Send to Web3Forms
   fetch('https://api.web3forms.com/submit', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
     body: JSON.stringify({
       access_key: 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
       subject: 'استبيان جديد - ' + name,
@@ -656,7 +652,22 @@ function submitSurvey() {
       email: email,
       message: message
     })
-  }).catch(function(){});
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+      document.querySelector('.progress-wrap').style.display = 'none';
+      document.getElementById('surveySuccess').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      alert('Submission failed');
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert('Error sending form');
+  });
 }
 
 // Init
