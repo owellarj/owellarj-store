@@ -622,7 +622,7 @@ function getSelectedOptions(containerId) {
   return selected.join('، ') || 'لم يتم الاختيار';
 }
 
-async function submitSurvey() {
+function submitSurvey() {
   answers['q2'] = getSelectedOptions('q2');
   answers['q5'] = document.getElementById('q5').value || 'لا يوجد';
   answers['price'] = document.getElementById('priceSlider').value + ' ر.س/شهر';
@@ -630,41 +630,43 @@ async function submitSurvey() {
   const email = document.getElementById('uemail').value || 'غير محدد';
   const exp = document.getElementById('uexp').value || 'غير محدد';
 
-  const btn = document.querySelector('#step6 .btn-next');
-  btn.textContent = 'جاري الإرسال...';
-  btn.disabled = true;
+  // Build hidden form and submit to Formspree
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = 'https://formspree.io/f/xreogjek';
 
-  const formData = new FormData();
-  formData.append('email', email);
-  formData.append('name', name);
-  formData.append('خبرة البيع', exp);
-  formData.append('الاهتمام بالمنصة', answers['q1'] || 'لم يجب');
-  formData.append('الأدوات المطلوبة', answers['q2']);
-  formData.append('نموذج الاشتراك', answers['q3'] || 'لم يجب');
-  formData.append('السعر المقبول شهرياً', answers['price']);
-  formData.append('أدوات مقترحة', answers['q5']);
+  const fields = {
+    'email': email,
+    'name': name,
+    'خبرة البيع': exp,
+    'الاهتمام بالمنصة': answers['q1'] || 'لم يجب',
+    'الأدوات المطلوبة': answers['q2'],
+    'نموذج الاشتراك': answers['q3'] || 'لم يجب',
+    'السعر المقبول شهرياً': answers['price'],
+    'أدوات مقترحة': answers['q5'],
+    '_next': window.location.origin + '/survey.html?done=1',
+    '_subject': 'استبيان جديد - ' + name
+  };
 
-  try {
-    const res = await fetch('https://formspree.io/f/xreogjek', {
-      method: 'POST',
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    });
-
-    if (res.ok) {
-      document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-      document.querySelector('.progress-wrap').style.display = 'none';
-      document.getElementById('surveySuccess').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      btn.textContent = 'حدث خطأ، حاول مرة أخرى';
-      btn.disabled = false;
-    }
-  } catch(e) {
-    btn.textContent = 'حدث خطأ، حاول مرة أخرى';
-    btn.disabled = false;
+  for (const [key, val] of Object.entries(fields)) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = val;
+    form.appendChild(input);
   }
+
+  document.body.appendChild(form);
+  form.submit();
 }
+
+// Show success if redirected back after form submit
+  if (window.location.search.includes('done=1')) {
+    document.querySelector('.survey-hero').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.querySelector('.survey-wrap').innerHTML = document.getElementById('surveySuccess').outerHTML;
+    document.querySelector('.survey-success').style.display = 'block';
+  }
 
 // Init
 updateProgress(1);
