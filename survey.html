@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23f0b429'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استبيان | Owellarj</title>
+<meta name="description" content="شاركنا رأيك في الأدوات التي تحتاجها كبائع على أمازون — ساعدنا في بناء المنصة التي تناسبك.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080b12;
+    --bg2: #0d1220;
+    --card: #0f1525;
+    --gold: #f0b429;
+    --gold-dim: rgba(240,180,41,0.12);
+    --gold-border: rgba(240,180,41,0.25);
+    --white: #f0f4ff;
+    --muted: #7a8aaa;
+    --border: rgba(255,255,255,0.06);
+    --green: #4caf50;
+    --green-dim: rgba(76,175,80,0.1);
+    --green-border: rgba(76,175,80,0.3);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100; padding: 0 5%; height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(8,11,18,0.9); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { text-decoration: none; }
+  .logo-text {
+    font-family: 'Tajawal', sans-serif; font-size: 1.35rem;
+    font-weight: 800; color: var(--white);
+  }
+  .nav-back {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 0.88rem; font-weight: 600;
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--gold); }
+
+  /* HERO */
+  .survey-hero {
+    min-height: 52vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 130px 5% 60px; position: relative; overflow: hidden; text-align: center;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,180,41,0.07) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -55%); pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-block; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px; padding: 6px 16px;
+    border: 1px solid var(--gold-border); border-radius: 100px;
+    background: var(--gold-dim);
+  }
+  .survey-hero h1 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900; line-height: 1.2; margin-bottom: 20px;
+  }
+  .survey-hero h1 em { font-style: normal; color: var(--gold); }
+  .survey-hero p {
+    font-size: 1.05rem; color: var(--muted); line-height: 1.9; max-width: 580px; margin: 0 auto;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    max-width: 720px; margin: 0 auto 40px;
+    padding: 0 5%;
+  }
+  .progress-bar-bg {
+    height: 4px; background: var(--border); border-radius: 4px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; background: var(--gold);
+    border-radius: 4px; transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.78rem; color: var(--muted); margin-top: 8px;
+  }
+
+  /* FORM */
+  .survey-wrap {
+    max-width: 720px; margin: 0 auto;
+    padding: 0 5% 100px; position: relative; z-index: 1;
+  }
+
+  /* STEP */
+  .step { display: none; }
+  .step.active { display: block; animation: fadeUp 0.4s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .step-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 44px 48px; margin-bottom: 20px;
+    position: relative; overflow: hidden;
+  }
+  .step-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .step-num {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .step-card h2 {
+    font-family: 'Tajawal', sans-serif; font-size: 1.45rem;
+    font-weight: 800; margin-bottom: 8px; line-height: 1.4;
+  }
+  .step-card .step-desc {
+    font-size: 0.9rem; color: var(--muted); margin-bottom: 32px; line-height: 1.8;
+  }
+
+  /* OPTIONS GRID */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .option-card {
+    border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 18px 16px;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; flex-direction: column; gap: 8px;
+    background: var(--bg2); position: relative;
+  }
+  .option-card:hover { border-color: var(--gold-border); background: var(--gold-dim); }
+  .option-card.selected {
+    border-color: var(--gold); background: var(--gold-dim);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+  .option-card.selected::after {
+    content: '✓'; position: absolute; top: 10px; left: 12px;
+    width: 20px; height: 20px; background: var(--gold); color: #080b12;
+    border-radius: 50%; font-size: 0.7rem; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .option-icon { font-size: 1.5rem; }
+  .option-label { font-size: 0.88rem; font-weight: 700; color: var(--white); }
+  .option-sub { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* SINGLE SELECT (radio style) */
+  .radio-options { display: flex; flex-direction: column; gap: 12px; }
+  .radio-option {
+    border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 16px 20px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 14px; background: var(--bg2);
+  }
+  .radio-option:hover { border-color: var(--gold-border); background: var(--gold-dim); }
+  .radio-option.selected { border-color: var(--gold); background: var(--gold-dim); box-shadow: 0 0 0 1px var(--gold); }
+  .radio-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .radio-option.selected .radio-dot { border-color: var(--gold); background: var(--gold); }
+  .radio-option.selected .radio-dot::after { content: ''; width: 8px; height: 8px; background: #080b12; border-radius: 50%; }
+  .radio-text { font-size: 0.93rem; font-weight: 600; }
+  .radio-sub { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+  /* RANGE SLIDER */
+  .price-range-wrap { padding: 10px 0; }
+  .price-display {
+    text-align: center; margin-bottom: 20px;
+    font-family: 'Tajawal', sans-serif; font-size: 2rem; font-weight: 900; color: var(--gold);
+  }
+  .price-display span { font-size: 1rem; color: var(--muted); font-weight: 600; }
+  input[type="range"] {
+    width: 100%; -webkit-appearance: none; height: 6px;
+    background: var(--border); border-radius: 3px; outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 22px; height: 22px;
+    background: var(--gold); border-radius: 50%; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(240,180,41,0.4);
+  }
+  .price-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.78rem; color: var(--muted); margin-top: 10px;
+  }
+
+  /* TEXTAREA */
+  .survey-textarea {
+    width: 100%; min-height: 130px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px; color: var(--white);
+    font-family: 'Cairo', sans-serif; font-size: 0.93rem;
+    outline: none; resize: vertical; direction: rtl; line-height: 1.8;
+    transition: border-color 0.2s;
+  }
+  .survey-textarea:focus { border-color: var(--gold-border); }
+  .survey-textarea::placeholder { color: #3a4a62; }
+
+  /* INPUT */
+  .survey-input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 16px; color: var(--white);
+    font-family: 'Cairo', sans-serif; font-size: 0.93rem;
+    outline: none; direction: rtl; transition: border-color 0.2s;
+  }
+  .survey-input:focus { border-color: var(--gold-border); }
+  .survey-input::placeholder { color: #3a4a62; }
+  .input-label { font-size: 0.83rem; font-weight: 700; color: #a0b0c8; margin-bottom: 8px; display: block; }
+
+  /* NAV BUTTONS */
+  .step-nav {
+    display: flex; gap: 12px; justify-content: space-between;
+    margin-top: 28px;
+  }
+  .btn-next {
+    flex: 1; background: linear-gradient(135deg, var(--gold), #e8930a);
+    color: #080b12; font-family: 'Tajawal', sans-serif; font-weight: 800;
+    font-size: 1rem; padding: 14px 32px; border: none; border-radius: 10px;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(240,180,41,0.3);
+  }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(240,180,41,0.4); }
+  .btn-prev {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--muted); font-family: 'Cairo', sans-serif; font-weight: 600;
+    font-size: 0.93rem; padding: 14px 24px; border-radius: 10px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-prev:hover { border-color: var(--gold-border); color: var(--white); }
+
+  /* SUCCESS */
+  .survey-success {
+    display: none; text-align: center; padding: 80px 48px;
+    background: var(--card); border: 1px solid var(--green-border);
+    border-radius: 20px;
+  }
+  .success-icon { font-size: 4rem; margin-bottom: 24px; }
+  .survey-success h2 {
+    font-family: 'Tajawal', sans-serif; font-size: 2rem;
+    font-weight: 900; margin-bottom: 16px; color: var(--green);
+  }
+  .survey-success p { font-size: 1rem; color: var(--muted); line-height: 1.9; max-width: 440px; margin: 0 auto 32px; }
+  .btn-home {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--gold), #e8930a);
+    color: #080b12; font-family: 'Tajawal', sans-serif; font-weight: 800;
+    font-size: 1rem; padding: 14px 36px; border-radius: 10px;
+    text-decoration: none; transition: transform 0.2s;
+  }
+  .btn-home:hover { transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); background: var(--bg2);
+    padding: 32px 5%; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    position: relative; z-index: 1;
+  }
+  .footer-text { font-size: 0.85rem; color: var(--muted); }
+
+  @media (max-width: 600px) {
+    .step-card { padding: 28px 20px; }
+    .options-grid { grid-template-columns: 1fr 1fr; }
+    .survey-success { padding: 48px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><span class="logo-text">Owellarj</span></a>
+  <a href="index.html" class="nav-back">← العودة للرئيسية</a>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="survey-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="eyebrow">استبيان</div>
+    <h1>ساعدنا في بناء<br><em>المنصة التي تناسبك</em></h1>
+    <p>رأيك يشكّل المستقبل — أخبرنا عن الأدوات التي تحتاجها كبائع على أمازون حتى نبنيها لك.</p>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-label">
+    <span id="progressText">السؤال 1 من 6</span>
+    <span id="progressPct">0%</span>
+  </div>
+</div>
+
+<!-- SURVEY FORM -->
+<div class="survey-wrap">
+
+  <!-- STEP 1: اهتمام عام -->
+  <div class="step active" id="step1">
+    <div class="step-card">
+      <div class="step-num">السؤال ١ من ٦</div>
+      <h2>هل أنت مهتم باستخدام منصة متكاملة لإدارة وتحليل عملك على أمازون؟</h2>
+      <p class="step-desc">منصة بها جميع الأدوات التي تحتاجها في مكان واحد، مصممة خصيصاً للبائع العربي.</p>
+      <div class="radio-options" id="q1">
+        <div class="radio-option" onclick="selectRadio('q1', this, 'نعم، أنا مهتم جداً')">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-text">نعم، أنا مهتم جداً 🔥</div>
+            <div class="radio-sub">أبحث عن حل متكامل الآن</div>
+          </div>
+        </div>
+        <div class="radio-option" onclick="selectRadio('q1', this, 'مهتم لكن أحتاج معرفة المزيد')">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-text">مهتم لكن أحتاج معرفة المزيد</div>
+            <div class="radio-sub">يعتمد على الأدوات والسعر</div>
+          </div>
+        </div>
+        <div class="radio-option" onclick="selectRadio('q1', this, 'ربما مستقبلاً')">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-text">ربما مستقبلاً</div>
+            <div class="radio-sub">لست مستعداً الآن</div>
+          </div>
+        </div>
+        <div class="radio-option" onclick="selectRadio('q1', this, 'لست مهتماً')">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-text">لست مهتماً حالياً</div>
+            <div class="radio-sub">أكتفي بالأدوات الحالية</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-next" onclick="nextStep(1)">التالي ←</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: الأدوات المطلوبة -->
+  <div class="step" id="step2">
+    <div class="step-card">
+      <div class="step-num">السؤال ٢ من ٦</div>
+      <h2>ما الأدوات التي تريدها في المنصة؟</h2>
+      <p class="step-desc">اختر كل ما يناسبك — يمكنك اختيار أكثر من إجابة.</p>
+      <div class="options-grid" id="q2">
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">🔍</div>
+          <div class="option-label">تحليل السوق والمنتجات</div>
+          <div class="option-sub">دراسة المنافسة، الأسعار، الفرص</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">📦</div>
+          <div class="option-label">تتبع رسوم FBA</div>
+          <div class="option-sub">مراقبة التكاليف والرسوم الأسبوعية</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">🤝</div>
+          <div class="option-label">إدارة الموردين</div>
+          <div class="option-sub">متابعة الأسعار، التقييم، البدائل</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">📈</div>
+          <div class="option-label">تحليل الطلب والمواسم</div>
+          <div class="option-sub">توقيت الدخول، الذروة، الانخفاض</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">🧪</div>
+          <div class="option-label">نظام R&D للمنتجات</div>
+          <div class="option-sub">تطوير وتحليل الأفكار الجديدة</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">🤖</div>
+          <div class="option-label">وكيل AI للمصادر</div>
+          <div class="option-sub">إيجاد موردين ومنتجات بالذكاء الاصطناعي</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">💰</div>
+          <div class="option-label">حاسبة الربحية</div>
+          <div class="option-sub">احتساب الأرباح قبل الشراء</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">📊</div>
+          <div class="option-label">لوحة تحكم مركزية</div>
+          <div class="option-sub">كل بياناتك في مكان واحد</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">📝</div>
+          <div class="option-label">بناء Listing احترافي</div>
+          <div class="option-sub">عناوين، نقاط، وصف محسّن</div>
+        </div>
+        <div class="option-card" onclick="toggleOption(this)">
+          <div class="option-icon">🚨</div>
+          <div class="option-label">تنبيهات ومراقبة</div>
+          <div class="option-sub">إشعارات عند تغير الأسعار أو المنافسة</div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep(2)">→ السابق</button>
+      <button class="btn-next" onclick="nextStep(2)">التالي ←</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: نموذج الاشتراك -->
+  <div class="step" id="step3">
+    <div class="step-card">
+      <div class="step-num">السؤال ٣ من ٦</div>
+      <h2>ما نموذج الاشتراك المناسب لك؟</h2>
+      <p class="step-desc">كيف تفضّل الدفع مقابل الأدوات التي تستخدمها؟</p>
+      <div class="radio-options" id="q3">
+        <div class="radio-option" onclick="selectRadio('q3', this, 'اشتراك شهري')">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-text">اشتراك شهري</div>
+            <div class="radio-sub">مرونة كاملة، ألغِ في أي وقت</div>
+          </div>
+        </div>
+        <div class="radio-option" onclick="selectRadio('q3', this, 'اشتراك سنوي بخصم')">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-text">اشتراك سنوي بخصم</div>
+            <div class="radio-sub">وفّر أكثر مع الالتزام السنوي</div>
+          </div>
+        </div>
+        <div class="radio-option" onclick="selectRadio('q3', this, 'دفع مرة واحدة لكل أداة')">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-text">دفع مرة واحدة لكل أداة</div>
+            <div class="radio-sub">بدون اشتراكات متكررة</div>
+          </div>
+        </div>
+        <div class="radio-option" onclick="selectRadio('q3', this, 'خطة مجانية + ترقية')">
+          <div class="radio-dot"></div>
+          <div>
+            <div class="radio-text">خطة مجانية + ترقية للمتقدم</div>
+            <div class="radio-sub">ابدأ مجاناً وادفع عند الحاجة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep(3)">→ السابق</button>
+      <button class="btn-next" onclick="nextStep(3)">التالي ←</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: السعر -->
+  <div class="step" id="step4">
+    <div class="step-card">
+      <div class="step-num">السؤال ٤ من ٦</div>
+      <h2>كم تكون مستعداً لدفعه شهرياً؟</h2>
+      <p class="step-desc">مقابل منصة متكاملة تضم جميع الأدوات التي تحتاجها.</p>
+      <div class="price-range-wrap">
+        <div class="price-display" id="priceDisplay">99 <span>ر.س / شهر</span></div>
+        <input type="range" id="priceSlider" min="29" max="499" value="99" step="10"
+          oninput="updatePrice(this.value)">
+        <div class="price-labels">
+          <span>29 ر.س</span>
+          <span>499 ر.س</span>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep(4)">→ السابق</button>
+      <button class="btn-next" onclick="nextStep(4)">التالي ←</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: اقتراحات -->
+  <div class="step" id="step5">
+    <div class="step-card">
+      <div class="step-num">السؤال ٥ من ٦</div>
+      <h2>ما الأدوات التي تتمنى وجودها ولم تجدها في السوق؟</h2>
+      <p class="step-desc">اكتب بحرية — كل فكرة قد تصبح الأداة التالية التي نبنيها.</p>
+      <textarea class="survey-textarea" id="q5" placeholder="مثال: أريد أداة تحلل مراجعات المنافسين وتستخرج أكثر الشكاوى تكراراً..."></textarea>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep(5)">→ السابق</button>
+      <button class="btn-next" onclick="nextStep(5)">التالي ←</button>
+    </div>
+  </div>
+
+  <!-- STEP 6: بيانات التواصل -->
+  <div class="step" id="step6">
+    <div class="step-card">
+      <div class="step-num">السؤال ٦ من ٦</div>
+      <h2>أخبرنا من أنت</h2>
+      <p class="step-desc">اختياري — لكن إذا أردت أن نُعلمك عند إطلاق المنصة، اترك بريدك الإلكتروني.</p>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <label class="input-label" for="uname">الاسم (اختياري)</label>
+          <input class="survey-input" id="uname" type="text" placeholder="اسمك الكريم">
+        </div>
+        <div>
+          <label class="input-label" for="uemail">البريد الإلكتروني (اختياري)</label>
+          <input class="survey-input" id="uemail" type="email" placeholder="email@example.com" dir="ltr">
+        </div>
+        <div>
+          <label class="input-label" for="uexp">كم سنة خبرتك في البيع على أمازون؟</label>
+          <select class="survey-input" id="uexp">
+            <option value="">اختر...</option>
+            <option>أقل من سنة</option>
+            <option>1-2 سنة</option>
+            <option>3-5 سنوات</option>
+            <option>أكثر من 5 سنوات</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="step-nav">
+      <button class="btn-prev" onclick="prevStep(6)">→ السابق</button>
+      <button class="btn-next" onclick="submitSurvey()" style="background:linear-gradient(135deg,#4caf50,#2e7d32);">إرسال الاستبيان ✓</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="survey-success" id="surveySuccess">
+    <div class="success-icon">🎉</div>
+    <h2>شكراً جزيلاً!</h2>
+    <p>رأيك وصلنا وسيساعدنا في بناء المنصة التي تحتاجها فعلاً. سنتواصل معك عند إطلاق الأدوات الجديدة.</p>
+    <a href="index.html" class="btn-home">العودة للرئيسية ←</a>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <span class="logo-text" style="font-size:1rem;">Owellarj</span>
+  <div class="footer-text">© 2026 Owellarj. جميع الحقوق محفوظة.</div>
+</footer>
+
+<script>
+const TOTAL_STEPS = 6;
+const answers = {};
+let currentStep = 1;
+
+function updateProgress(step) {
+  const pct = Math.round(((step - 1) / TOTAL_STEPS) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressText').textContent = `السؤال ${step} من ${TOTAL_STEPS}`;
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('step' + n);
+  if (el) el.classList.add('active');
+  currentStep = n;
+  updateProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep(from) {
+  showStep(from + 1);
+}
+
+function prevStep(from) {
+  showStep(from - 1);
+}
+
+function selectRadio(groupId, el, value) {
+  document.querySelectorAll('#' + groupId + ' .radio-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[groupId] = value;
+}
+
+function toggleOption(el) {
+  el.classList.toggle('selected');
+}
+
+function updatePrice(val) {
+  document.getElementById('priceDisplay').innerHTML = val + ' <span>ر.س / شهر</span>';
+  answers['price'] = val + ' ر.س/شهر';
+}
+
+function getSelectedOptions(containerId) {
+  const selected = [];
+  document.querySelectorAll('#' + containerId + ' .option-card.selected .option-label').forEach(el => {
+    selected.push(el.textContent.trim());
+  });
+  return selected.join('، ') || 'لم يتم الاختيار';
+}
+
+async function submitSurvey() {
+  answers['q2'] = getSelectedOptions('q2');
+  answers['q5'] = document.getElementById('q5').value || 'لا يوجد';
+  answers['price'] = document.getElementById('priceSlider').value + ' ر.س/شهر';
+  const name = document.getElementById('uname').value || 'غير محدد';
+  const email = document.getElementById('uemail').value || 'غير محدد';
+  const exp = document.getElementById('uexp').value || 'غير محدد';
+
+  const btn = document.querySelector('#step6 .btn-next');
+  btn.textContent = 'جاري الإرسال...';
+  btn.disabled = true;
+
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('name', name);
+  formData.append('خبرة البيع', exp);
+  formData.append('الاهتمام بالمنصة', answers['q1'] || 'لم يجب');
+  formData.append('الأدوات المطلوبة', answers['q2']);
+  formData.append('نموذج الاشتراك', answers['q3'] || 'لم يجب');
+  formData.append('السعر المقبول شهرياً', answers['price']);
+  formData.append('أدوات مقترحة', answers['q5']);
+
+  try {
+    const res = await fetch('https://formspree.io/f/xreogjek', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+      document.querySelector('.progress-wrap').style.display = 'none';
+      document.getElementById('surveySuccess').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      btn.textContent = 'حدث خطأ، حاول مرة أخرى';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    btn.textContent = 'حدث خطأ، حاول مرة أخرى';
+    btn.disabled = false;
+  }
+}
+
+// Init
+updateProgress(1);
+updatePrice(99);
+</script>
+
+</body>
+</html>
