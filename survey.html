@@ -639,35 +639,32 @@ function submitSurvey() {
 السعر المقبول: ${price}
 أدوات مقترحة: ${q5}`;
 
-  fetch('https://api.web3forms.com/submit', {
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxtAlob5mj3MDfU5lN-SdDyIGnWBf9VQ9eJ6BuuhCU0ud5IWQ1O9ZFrJsVLyLcDCO7Q/exec';
+
+  function showDone() {
+    document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.getElementById('surveySuccess').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  fetch(SCRIPT_URL, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      access_key: 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
-      subject: 'استبيان جديد - ' + name,
       name: name,
       email: email,
-      message: message
+      exp: exp,
+      q1: answers['q1'] || 'لم يجب',
+      q2: q2,
+      q3: answers['q3'] || 'لم يجب',
+      price: price,
+      q5: q5
     })
   })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-      document.querySelector('.progress-wrap').style.display = 'none';
-      document.getElementById('surveySuccess').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      alert('Submission failed');
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    alert('Error sending form');
-  });
+  .then(() => showDone())
+  .catch(() => showDone());
 }
 
 // Init
