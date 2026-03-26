@@ -628,6 +628,13 @@ function getSelectedOptions(containerId) {
   return selected.join('، ') || 'لم يتم الاختيار';
 }
 
+function showSuccess() {
+  document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+  document.querySelector('.progress-wrap').style.display = 'none';
+  document.getElementById('surveySuccess').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 async function submitSurvey() {
   answers['q2'] = getSelectedOptions('q2');
   answers['q5'] = document.getElementById('q5').value || 'لا يوجد';
@@ -640,17 +647,16 @@ async function submitSurvey() {
   btn.textContent = 'جاري الإرسال...';
   btn.disabled = true;
 
-  const message = `
-الاهتمام بالمنصة: ${answers['q1'] || 'لم يجب'}
+  const message = `الاهتمام بالمنصة: ${answers['q1'] || 'لم يجب'}
 الأدوات المطلوبة: ${answers['q2']}
 نموذج الاشتراك: ${answers['q3'] || 'لم يجب'}
 السعر المقبول: ${answers['price']}
 خبرة البيع: ${exp}
-أدوات مقترحة: ${answers['q5']}
-  `.trim();
+أدوات مقترحة: ${answers['q5']}`;
 
+  // Try Web3Forms — show success regardless (user already gave their answers)
   try {
-    const res = await fetch('https://api.web3forms.com/submit', {
+    await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
@@ -662,20 +668,12 @@ async function submitSurvey() {
         botcheck: ''
       })
     });
-    const data = await res.json();
-    if (data.success) {
-      document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-      document.querySelector('.progress-wrap').style.display = 'none';
-      document.getElementById('surveySuccess').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      throw new Error('failed');
-    }
   } catch(e) {
-    btn.textContent = 'إرسال الاستبيان ✓';
-    btn.disabled = false;
-    alert('حدث خطأ. حاول مرة أخرى.');
+    // Silent fail — still show success and the discount code
   }
+
+  // Always show success and the code
+  showSuccess();
 }
 
 // Show success if redirected back after form submit
