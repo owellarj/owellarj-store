@@ -1242,16 +1242,25 @@
   .form-status.error   { background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); color: #ff6b6b; }
 
 
-  .riyal-symbol {
-    font-family: 'Noto Sans Arabic', 'Tajawal', 'Cairo', sans-serif;
+  .riyal-desktop {
     font-size: 1.1em;
     line-height: 1;
     vertical-align: middle;
     display: inline-block;
   }
+  .riyal-mobile {
+    display: none;
+    font-size: 0.75em;
+    font-weight: 700;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+  @media (max-width: 768px) {
+    .riyal-desktop { display: none; }
+    .riyal-mobile { display: inline-block; }
+  }
 
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -1373,7 +1382,7 @@
           <div class="card-feature">يتطلب Helium 10 للاستخدام</div>
         </div>
         <div class="card-footer">
-          <div class="card-price"><span class="riyal-symbol">⃁</span>149.99</div>
+          <div class="card-price"><span class="riyal-desktop">⃁</span><span class="riyal-mobile">SAR</span>149.99</div>
           <a href="market-study.html" class="card-btn">اشتري الآن ←</a>
         </div>
       </div>
@@ -1432,7 +1441,7 @@
         <div class="card-feature">تنظيم رسوم لكل SKU بشكل منفصل</div>
       </div>
       <div class="card-footer">
-        <div class="card-price"><span class="riyal-symbol">⃁</span>149.99</div>
+        <div class="card-price"><span class="riyal-desktop">⃁</span><span class="riyal-mobile">SAR</span>149.99</div>
         <a href="fba-fees.html" class="card-btn">اشتري ←</a>
       </div>
     </div>
@@ -1451,7 +1460,7 @@
         <div class="card-feature">إدارة الموردين البدلاء</div>
       </div>
       <div class="card-footer">
-        <div class="card-price"><span class="riyal-symbol">⃁</span>99.99</div>
+        <div class="card-price"><span class="riyal-desktop">⃁</span><span class="riyal-mobile">SAR</span>99.99</div>
         <a href="supplier-tracking.html" class="card-btn">اشتري ←</a>
       </div>
     </div>
@@ -1470,7 +1479,7 @@
         <div class="card-feature">تخطيط المخزون حسب المواسم</div>
       </div>
       <div class="card-footer">
-        <div class="card-price"><span class="riyal-symbol">⃁</span>129.99</div>
+        <div class="card-price"><span class="riyal-desktop">⃁</span><span class="riyal-mobile">SAR</span>129.99</div>
         <a href="demand-study.html" class="card-btn">اشتري ←</a>
       </div>
     </div>
@@ -1489,7 +1498,7 @@
         <div class="card-feature">دعم بناء Listing قوي</div>
       </div>
       <div class="card-footer">
-        <div class="card-price"><span class="riyal-symbol">⃁</span>39.99</div>
+        <div class="card-price"><span class="riyal-desktop">⃁</span><span class="riyal-mobile">SAR</span>39.99</div>
         <a href="data-dive.html" class="card-btn">اشتري ←</a>
       </div>
     </div>

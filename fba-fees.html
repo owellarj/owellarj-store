@@ -730,16 +730,25 @@
   .pay-logo.ssl    { color: #f0b429; background: rgba(240,180,41,0.1); border-color: rgba(240,180,41,0.25); }
 
 
-  .riyal-symbol {
-    font-family: 'Noto Sans Arabic', 'Tajawal', 'Cairo', sans-serif;
+  .riyal-desktop {
     font-size: 1.1em;
     line-height: 1;
     vertical-align: middle;
     display: inline-block;
   }
+  .riyal-mobile {
+    display: none;
+    font-size: 0.75em;
+    font-weight: 700;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+  @media (max-width: 768px) {
+    .riyal-desktop { display: none; }
+    .riyal-mobile { display: inline-block; }
+  }
 
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -785,7 +794,7 @@
     <div class="product-icon">📦</div>
     <div class="product-badge">إدارة التكاليف</div>
     <h1>نظام <em>FBA Fees Tracker</em></h1>
-    <div class="hero-price"><span class="riyal-symbol">⃁</span> 149.99</div>
+    <div class="hero-price"><span class="riyal-desktop">⃁</span><span class="riyal-mobile">SAR</span> 149.99</div>
     <p class="hero-desc">راقب رسوم التخزين في أمازون أسبوعياً قبل أن تتضاعف دون أن تشعر. اكتشف أي زيادة مبكراً واحمِ هامش ربحك.</p>
     <a href="https://owellarj.lemonsqueezy.com/checkout/buy/b5fb90ed-a5f9-4aea-a523-a60e93d058ff" class="hero-cta" target="_blank">اشتري الآن ←</a>
     <div class="hero-guarantee">
@@ -963,7 +972,7 @@
 <section class="final-cta">
   <div class="section-wrapper">
     <h2 class="fade-up">احمِ هامش ربحك الآن</h2>
-    <div class="price-tag fade-up"><span class="riyal-symbol">⃁</span> 149.99</div>
+    <div class="price-tag fade-up"><span class="riyal-desktop">⃁</span><span class="riyal-mobile">SAR</span> 149.99</div>
     <p class="fade-up">راقب رسوم التخزين أسبوعياً واكتشف الزيادات قبل أن تأكل أرباحك</p>
     <a href="https://owellarj.lemonsqueezy.com/checkout/buy/b5fb90ed-a5f9-4aea-a523-a60e93d058ff" class="hero-cta fade-up" target="_blank">اشتري الآن ←</a>
   </div>
