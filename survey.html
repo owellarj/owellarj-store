@@ -636,38 +636,7 @@ function showSuccess() {
 }
 
 function submitSurvey() {
-  answers['q2'] = getSelectedOptions('q2');
-  answers['q5'] = document.getElementById('q5').value || 'لا يوجد';
-  answers['price'] = document.getElementById('priceSlider').value + ' ر.س/شهر';
-  var name = document.getElementById('uname').value || 'غير محدد';
-  var email = document.getElementById('uemail').value || 'غير محدد';
-  var exp = document.getElementById('uexp').value || 'غير محدد';
-
-  var message = 'الاهتمام بالمنصة: ' + (answers['q1'] || 'لم يجب') + '\n' +
-    'الأدوات المطلوبة: ' + answers['q2'] + '\n' +
-    'نموذج الاشتراك: ' + (answers['q3'] || 'لم يجب') + '\n' +
-    'السعر المقبول: ' + answers['price'] + '\n' +
-    'خبرة البيع: ' + exp + '\n' +
-    'أدوات مقترحة: ' + answers['q5'];
-
-  // Show success immediately — no waiting
   showSuccess();
-
-  // Send data silently in background
-  setTimeout(function() {
-    fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        access_key: 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
-        subject: 'استبيان جديد - ' + name,
-        from_name: name || 'زائر Owellarj',
-        email: email,
-        message: message,
-        botcheck: ''
-      })
-    }).catch(function() {});
-  }, 100);
 }
 
 // Show success if redirected back after form submit
