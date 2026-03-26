@@ -1668,7 +1668,7 @@
   <div class="faq-wrap">
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">📦</div>
           هل الأنظمة تعمل مع أي موقع أمازون؟
@@ -1683,7 +1683,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">🔧</div>
           هل أحتاج خبرة تقنية لاستخدام الأنظمة؟
@@ -1698,7 +1698,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">⚡</div>
           هل سأحصل على الملف فور الشراء؟
@@ -1713,7 +1713,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">🔑</div>
           هل أحتاج Helium 10 لاستخدام الأنظمة؟
@@ -1728,7 +1728,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">💻</div>
           ما البرامج المطلوبة لتشغيل الأنظمة؟
@@ -1743,7 +1743,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">🔄</div>
           هل يمكنني استخدام النظام لأكثر من منتج؟
@@ -1758,7 +1758,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">🎟️</div>
           كيف يعمل كود خصم Data Dive؟
@@ -1773,7 +1773,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">🛡️</div>
           هل الدفع آمن؟
@@ -1789,7 +1789,7 @@
 
 
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">
+      <button class="faq-q" aria-expanded="false" onclick="toggleFAQ(this)">
         <div class="faq-q-text">
           <div class="faq-icon">🛡️</div>
           ما هو ضمان الرضا لـ 7 أيام؟
@@ -1798,7 +1798,7 @@
       </button>
       <div class="faq-a">
         <div class="faq-a-inner">
-          نؤمن بجودة منتجاتنا، لذلك نقدم <strong>ضمان الرضا الكامل لمدة 7 أيام</strong> من تاريخ الشراء. إذا لم تكن راضياً عن أي نظام لأي سبب، تواصل معنا على <a href="#" onclick="this.href='mail'+'to:'+'owellarj'+'@'+'gmail.com';return true;" onmouseenter="this.textContent='owellarj@gmail.com'">owellarj@gmail.com</a> وسنعيد لك المبلغ كاملاً.
+          نؤمن بجودة منتجاتنا، لذلك نقدم <strong>ضمان الرضا الكامل لمدة 7 أيام</strong> من تاريخ الشراء. إذا لم تكن راضياً عن أي نظام لأي سبب، تواصل معنا على <a href="mailto:owellarj@gmail.com">owellarj@gmail.com</a> وسنعيد لك المبلغ كاملاً.
         </div>
       </div>
     </div>
@@ -1825,7 +1825,7 @@
         <div class="cd-icon">📧</div>
         <div class="cd-text">
           <label>البريد الإلكتروني</label>
-          <span><a href="#" onclick="this.href='mail'+'to:'+'owellarj'+'@'+'gmail.com';return true;" onmouseenter="this.textContent='owellarj@gmail.com'">owellarj@gmail.com</a></span>
+          <span><a href="mailto:owellarj@gmail.com">owellarj@gmail.com</a></span>
         </div>
       </div>
       <div class="contact-detail">
@@ -1957,28 +1957,19 @@
     });
   });
 
-  // FAQ accordion
-  function initFAQ() {
-    document.querySelectorAll('.faq-q').forEach(q => {
-      q.addEventListener('click', function() {
-        const item = this.closest('.faq-item');
-        const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(o => {
-          o.classList.remove('open');
-          o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-        });
-        if (!isOpen) {
-          item.classList.add('open');
-          this.setAttribute('aria-expanded', 'true');
-        }
-      });
+  // FAQ accordion - inline toggle function
+  window.toggleFAQ = function(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(o => {
+      o.classList.remove('open');
+      o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
     });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initFAQ);
-  } else {
-    initFAQ();
-  }
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  };
 
   // Navbar scroll effect
   const nav = document.querySelector('nav');
@@ -2029,7 +2020,7 @@
     if (!message) { showStatus('⚠️ الرجاء كتابة رسالتك', 'error'); return; }
 
     const body = `السلام عليكم،\n\nاسم المرسل: ${name}\nالبريد الإلكتروني: ${email}\nالموضوع: ${subject}\n\nالرسالة:\n${message}\n\n---\nأُرسلت عبر نموذج تواصل موقع Owellarj`;
-    window.location.href = 'mail'+'to:'+'owellarj'+'@'+'gmail.com'+'?subject=${encodeURIComponent('رسالة من الموقع: ' + subject + ' - ' + name)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:owellarj@gmail.com?subject=${encodeURIComponent('رسالة من الموقع: ' + subject + ' - ' + name)}&body=${encodeURIComponent(body)}`;
 
     document.getElementById('contactForm').reset();
     showStatus('✅ تم فتح تطبيق البريد — أرسل الرسالة من هناك وسنرد خلال 24 ساعة.', 'success');
