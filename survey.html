@@ -630,23 +630,33 @@ function submitSurvey() {
   const email = document.getElementById('uemail').value || 'غير محدد';
   const exp = document.getElementById('uexp').value || 'غير محدد';
 
-  const body = `استبيان جديد من موقع Owellarj
-الاسم: ${name}
+  const message = `الاسم: ${name}
 البريد: ${email}
 الخبرة: ${exp}
-
 الاهتمام بالمنصة: ${answers['q1'] || 'لم يجب'}
 الأدوات المطلوبة: ${q2}
 نموذج الاشتراك: ${answers['q3'] || 'لم يجب'}
 السعر المقبول: ${price}
 أدوات مقترحة: ${q5}`;
 
-  window.location.href = `mailto:owellarj@gmail.com?subject=${encodeURIComponent('استبيان جديد - ' + name)}&body=${encodeURIComponent(body)}`;
-
+  // Show success immediately
   document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
   document.querySelector('.progress-wrap').style.display = 'none';
   document.getElementById('surveySuccess').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Send to Web3Forms
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      access_key: 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
+      subject: 'استبيان جديد - ' + name,
+      name: name,
+      email: email,
+      message: message
+    })
+  }).catch(function(){});
 }
 
 // Init
