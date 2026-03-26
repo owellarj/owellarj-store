@@ -635,28 +635,27 @@ function showSuccess() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-async function submitSurvey() {
+function submitSurvey() {
   answers['q2'] = getSelectedOptions('q2');
   answers['q5'] = document.getElementById('q5').value || 'لا يوجد';
   answers['price'] = document.getElementById('priceSlider').value + ' ر.س/شهر';
-  const name = document.getElementById('uname').value || 'غير محدد';
-  const email = document.getElementById('uemail').value || 'غير محدد';
-  const exp = document.getElementById('uexp').value || 'غير محدد';
+  var name = document.getElementById('uname').value || 'غير محدد';
+  var email = document.getElementById('uemail').value || 'غير محدد';
+  var exp = document.getElementById('uexp').value || 'غير محدد';
 
-  const btn = document.querySelector('#step6 .btn-next');
-  btn.textContent = 'جاري الإرسال...';
-  btn.disabled = true;
+  var message = 'الاهتمام بالمنصة: ' + (answers['q1'] || 'لم يجب') + '\n' +
+    'الأدوات المطلوبة: ' + answers['q2'] + '\n' +
+    'نموذج الاشتراك: ' + (answers['q3'] || 'لم يجب') + '\n' +
+    'السعر المقبول: ' + answers['price'] + '\n' +
+    'خبرة البيع: ' + exp + '\n' +
+    'أدوات مقترحة: ' + answers['q5'];
 
-  const message = `الاهتمام بالمنصة: ${answers['q1'] || 'لم يجب'}
-الأدوات المطلوبة: ${answers['q2']}
-نموذج الاشتراك: ${answers['q3'] || 'لم يجب'}
-السعر المقبول: ${answers['price']}
-خبرة البيع: ${exp}
-أدوات مقترحة: ${answers['q5']}`;
+  // Show success immediately — no waiting
+  showSuccess();
 
-  // Try Web3Forms — show success regardless (user already gave their answers)
-  try {
-    await fetch('https://api.web3forms.com/submit', {
+  // Send data silently in background
+  setTimeout(function() {
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
@@ -667,13 +666,8 @@ async function submitSurvey() {
         message: message,
         botcheck: ''
       })
-    });
-  } catch(e) {
-    // Silent fail — still show success and the discount code
-  }
-
-  // Always show success and the code
-  showSuccess();
+    }).catch(function() {});
+  }, 100);
 }
 
 // Show success if redirected back after form submit
