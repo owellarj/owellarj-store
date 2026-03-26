@@ -670,12 +670,6 @@ async function submitSurvey() {
     btn.disabled = false;
     alert('حدث خطأ. حاول مرة أخرى.');
   }
-
-  // Always show success regardless
-  document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-  document.querySelector('.progress-wrap').style.display = 'none';
-  document.getElementById('surveySuccess').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Show success if redirected back after form submit
