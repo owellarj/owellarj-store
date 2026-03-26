@@ -663,8 +663,7 @@ function submitSurvey() {
       q5: q5
     })
   })
-  .then(() => showDone())
-  .catch(() => showDone());
+  .finally(() => showDone());
 }
 
 // Init
