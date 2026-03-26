@@ -636,7 +636,10 @@ function showSuccess() {
 }
 
 function submitSurvey() {
-  // Collect all answers
+  // Show code immediately
+  showSuccess();
+
+  // Collect answers
   answers['q2'] = getSelectedOptions('q2');
   answers['q5'] = document.getElementById('q5').value || 'لا يوجد';
   answers['price'] = document.getElementById('priceSlider').value + ' ر.س/شهر';
@@ -644,41 +647,24 @@ function submitSurvey() {
   var email = document.getElementById('uemail').value || 'غير محدد';
   var exp = document.getElementById('uexp').value || 'غير محدد';
 
-  var message = 'الاهتمام بالمنصة: ' + (answers['q1'] || 'لم يجب') + '\n' +
-    'الأدوات المطلوبة: ' + answers['q2'] + '\n' +
-    'نموذج الاشتراك: ' + (answers['q3'] || 'لم يجب') + '\n' +
-    'السعر المقبول: ' + answers['price'] + '\n' +
-    'خبرة البيع: ' + exp + '\n' +
-    'أدوات مقترحة: ' + answers['q5'];
-
-  // Build and submit a real HTML form to Web3Forms
-  var form = document.createElement('form');
-  form.method = 'POST';
-  form.action = 'https://api.web3forms.com/submit';
-  form.style.display = 'none';
-
-  var fields = {
+  var data = JSON.stringify({
     access_key: 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
     subject: 'استبيان جديد - ' + name,
     from_name: name,
     email: email,
-    message: message,
-    redirect: window.location.href + '?done=1'
-  };
+    message: 'الاهتمام بالمنصة: ' + (answers['q1'] || 'لم يجب') + '\n' +
+      'الأدوات المطلوبة: ' + answers['q2'] + '\n' +
+      'نموذج الاشتراك: ' + (answers['q3'] || 'لم يجب') + '\n' +
+      'السعر المقبول: ' + answers['price'] + '\n' +
+      'خبرة البيع: ' + exp + '\n' +
+      'أدوات مقترحة: ' + answers['q5']
+  });
 
-  for (var key in fields) {
-    var input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = key;
-    input.value = fields[key];
-    form.appendChild(input);
-  }
-
-  document.body.appendChild(form);
-
-  // Show success first then submit
-  showSuccess();
-  setTimeout(function() { form.submit(); }, 1500);
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://api.web3forms.com/submit', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Accept', 'application/json');
+  xhr.send(data);
 }
 
 // Show success if redirected back after form submit
