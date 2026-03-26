@@ -650,39 +650,20 @@ function submitSurvey() {
     'خبرة البيع: ' + exp + '\n' +
     'أدوات مقترحة: ' + answers['q5'];
 
-  // Hidden iframe to prevent page redirect
-  var iframe = document.createElement('iframe');
-  iframe.name = 'w3f_iframe';
-  iframe.style.display = 'none';
-  document.body.appendChild(iframe);
-
-  // Real HTML form — exact Web3Forms method
-  var form = document.createElement('form');
-  form.action = 'https://api.web3forms.com/submit';
-  form.method = 'POST';
-  form.target = 'w3f_iframe';
-  form.style.display = 'none';
-
-  var fields = {
-    'access_key': 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
-    'name': name,
-    'email': email,
-    'message': message
-  };
-
-  for (var k in fields) {
-    var inp = document.createElement('input');
-    inp.type = 'hidden';
-    inp.name = k;
-    inp.value = fields[k];
-    form.appendChild(inp);
-  }
-
-  document.body.appendChild(form);
-  form.submit();
-
-  // Show success after submit
+  // Show success and coupon immediately
   showSuccess();
+
+  // Submit to Web3Forms via fetch — works on GitHub Pages
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      access_key: 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
+      name: name,
+      email: email,
+      message: message
+    })
+  }).catch(function(){});
 }
 
 // Show success if redirected back after form submit
