@@ -2,7 +2,6 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.web3forms.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23f0b429'/%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>استبيان | Owellarj</title>
@@ -317,8 +316,8 @@
   <div class="hero-glow"></div>
   <div class="hero-content">
     <div class="eyebrow">استبيان</div>
-    <h1>ساعدنا في بناء<br><em>الأدوات التي تحتاجها</em></h1>
-    <p>أجب على 6 أسئلة سريعة عن الأدوات التي تحتاجها كبائع على أمازون وساعدنا في بناء المنصة المثالية.</p>
+    <h1>ساعدنا في بناء<br><em>المنصة التي تناسبك</em></h1>
+    <p>رأيك يشكّل المستقبل — أخبرنا عن الأدوات التي تحتاجها كبائع على أمازون حتى نبنيها لك.</p>
   </div>
 </section>
 
@@ -559,14 +558,8 @@
   <div class="survey-success" id="surveySuccess">
     <div class="success-icon">🎉</div>
     <h2>شكراً جزيلاً!</h2>
-    <p>رأيك وصلنا وسيساعدنا كثيراً. هديتك جاهزة — كود خصم <strong style="color:var(--green);">50%</strong> على جميع منتجاتنا الحالية والقادمة:</p>
-    <div style="margin:28px auto;max-width:320px;background:rgba(76,175,80,0.08);border:2px dashed rgba(76,175,80,0.4);border-radius:16px;padding:24px 20px;text-align:center;">
-      <div style="font-size:0.78rem;font-weight:700;letter-spacing:3px;color:#6fcf72;margin-bottom:10px;text-transform:uppercase;">كود الخصم الخاص بك</div>
-      <div style="font-family:'Tajawal',sans-serif;font-size:2.2rem;font-weight:900;color:#f0f4ff;letter-spacing:4px;margin-bottom:14px;">IXNDI3NA</div>
-      <button onclick="navigator.clipboard.writeText('IXNDI3NA').then(()=>{this.textContent='✅ تم النسخ!';setTimeout(()=>{this.textContent='📋 انسخ الكود';},2000)})" style="background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.4);color:#6fcf72;font-family:'Cairo',sans-serif;font-size:0.83rem;font-weight:700;padding:8px 20px;border-radius:8px;cursor:pointer;">📋 انسخ الكود</button>
-    </div>
-    <p style="font-size:0.83rem;color:#7a8aaa;margin-bottom:28px;">أدخل الكود عند شراء أي منتج من موقعنا — الحالية والقادمة — للحصول على خصم 50%.</p>
-    <a href="index.html" class="btn-home">تسوق الآن ←</a>
+    <p>رأيك وصلنا وسيساعدنا في بناء المنصة التي تحتاجها فعلاً. سنتواصل معك عند إطلاق الأدوات الجديدة.</p>
+    <a href="index.html" class="btn-home">العودة للرئيسية ←</a>
   </div>
 
 </div>
@@ -629,42 +622,54 @@ function getSelectedOptions(containerId) {
   return selected.join('، ') || 'لم يتم الاختيار';
 }
 
-function showSuccess() {
-  document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-  document.querySelector('.progress-wrap').style.display = 'none';
-  document.getElementById('surveySuccess').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function submitSurvey() {
+async function submitSurvey() {
   answers['q2'] = getSelectedOptions('q2');
   answers['q5'] = document.getElementById('q5').value || 'لا يوجد';
   answers['price'] = document.getElementById('priceSlider').value + ' ر.س/شهر';
-  var name = document.getElementById('uname').value || 'غير محدد';
-  var email = document.getElementById('uemail').value || 'غير محدد';
-  var exp = document.getElementById('uexp').value || 'غير محدد';
+  const name = document.getElementById('uname').value || 'غير محدد';
+  const email = document.getElementById('uemail').value || 'غير محدد';
+  const exp = document.getElementById('uexp').value || 'غير محدد';
 
-  var message = 'الاهتمام بالمنصة: ' + (answers['q1'] || 'لم يجب') + '\n' +
-    'الأدوات المطلوبة: ' + answers['q2'] + '\n' +
-    'نموذج الاشتراك: ' + (answers['q3'] || 'لم يجب') + '\n' +
-    'السعر المقبول: ' + answers['price'] + '\n' +
-    'خبرة البيع: ' + exp + '\n' +
-    'أدوات مقترحة: ' + answers['q5'];
+  const btn = document.querySelector('#step6 .btn-next');
+  btn.textContent = 'جاري الإرسال...';
+  btn.disabled = true;
 
-  // Show success and coupon immediately
-  showSuccess();
+  const message = `
+الاهتمام بالمنصة: ${answers['q1'] || 'لم يجب'}
+الأدوات المطلوبة: ${answers['q2']}
+نموذج الاشتراك: ${answers['q3'] || 'لم يجب'}
+السعر المقبول: ${answers['price']}
+خبرة البيع: ${exp}
+أدوات مقترحة: ${answers['q5']}
+  `.trim();
 
-  // Submit to Web3Forms via fetch — works on GitHub Pages
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({
-      access_key: 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
-      name: name,
-      email: email,
-      message: message
-    })
-  }).catch(function(){});
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: 'de6fc461-3bd0-4d66-92a3-078f321ddcaa',
+        subject: 'استبيان جديد - ' + name,
+        from_name: name || 'زائر Owellarj',
+        email: email,
+        message: message,
+        botcheck: ''
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+      document.querySelector('.progress-wrap').style.display = 'none';
+      document.getElementById('surveySuccess').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error('failed');
+    }
+  } catch(e) {
+    btn.textContent = 'إرسال الاستبيان ✓';
+    btn.disabled = false;
+    alert('حدث خطأ. حاول مرة أخرى.');
+  }
 }
 
 // Show success if redirected back after form submit
